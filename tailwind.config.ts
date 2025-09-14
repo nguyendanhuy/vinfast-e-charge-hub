@@ -47,6 +47,14 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        electric: {
+          blue: "hsl(var(--electric-blue))",
+          "blue-dark": "hsl(var(--electric-blue-dark))",
+          "blue-light": "hsl(var(--electric-blue-light))",
+        },
+        success: "hsl(var(--success))",
+        warning: "hsl(var(--warning))",
+        charging: "hsl(var(--charging))",
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
