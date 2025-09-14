@@ -60,6 +60,21 @@ const DriverDashboard = () => {
           </Card>
         </div>
 
+        {/* Hero Section with Background */}
+        <div className="relative mb-8 rounded-xl overflow-hidden animate-fade-in">
+          <div className="absolute inset-0 bg-gradient-to-r from-electric-blue/20 to-charging/20" />
+          <img 
+            src="/src/assets/ev-station-hero.jpg" 
+            alt="EV Station" 
+            className="w-full h-48 object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+          <div className="absolute bottom-4 left-4 text-white">
+            <h2 className="text-2xl font-bold mb-1">Hệ thống đổi pin thông minh</h2>
+            <p className="text-white/80">Trải nghiệm dịch vụ nhanh chóng và tiện lợi</p>
+          </div>
+        </div>
+
         {/* Main Features */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 animate-scale-in">
           <Card className="hover-glow">
@@ -100,32 +115,15 @@ const DriverDashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center text-electric-blue">
                 <Calendar className="h-6 w-6 mr-2" />
-                Đặt lịch giữ pin
+                Lịch sử đặt chỗ
               </CardTitle>
               <CardDescription>
-                Đặt trước lịch đổi pin tại trạm
+                Xem lại thông tin booking đã đăng ký
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Link to="/driver/reservation">
-                <Button className="w-full">Đặt lịch</Button>
-              </Link>
-            </CardContent>
-          </Card>
-
-          <Card className="hover-glow">
-            <CardHeader>
-              <CardTitle className="flex items-center text-electric-blue">
-                <CreditCard className="h-6 w-6 mr-2" />
-                Thanh toán
-              </CardTitle>
-              <CardDescription>
-                Thanh toán dịch vụ và nhận QR code
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Link to="/driver/payment">
-                <Button className="w-full">Thanh toán</Button>
+              <Link to="/driver/booking-history">
+                <Button className="w-full">Xem lịch sử</Button>
               </Link>
             </CardContent>
           </Card>

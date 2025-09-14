@@ -83,7 +83,7 @@ const Reports = () => {
             <CardDescription>Tùy chỉnh thời gian và trạm để xem báo cáo chi tiết</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid lg:grid-cols-4 gap-4">
+            <div className="grid lg:grid-cols-2 gap-4">
               <div>
                 <label className="text-sm font-medium mb-2 block">Tìm kiếm trạm</label>
                 <Input
@@ -107,46 +107,6 @@ const Reports = () => {
                     ))}
                   </SelectContent>
                 </Select>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Từ ngày</label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-start">
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {format(dateRange.from, "dd/MM/yyyy", { locale: vi })}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={dateRange.from}
-                      onSelect={(date) => setDateRange({...dateRange, from: date})}
-                      initialFocus
-                      className="pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              <div>
-                <label className="text-sm font-medium mb-2 block">Đến ngày</label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-start">
-                      <CalendarIcon className="mr-2 h-4 w-4" />
-                      {format(dateRange.to, "dd/MM/yyyy", { locale: vi })}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0">
-                    <Calendar
-                      mode="single"
-                      selected={dateRange.to}
-                      onSelect={(date) => setDateRange({...dateRange, to: date})}
-                      initialFocus
-                      className="pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
               </div>
             </div>
           </CardContent>

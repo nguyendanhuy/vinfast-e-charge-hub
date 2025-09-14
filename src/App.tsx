@@ -13,6 +13,7 @@ import StationFinder from "./pages/driver/StationFinder";
 import Reservation from "./pages/driver/Reservation";
 import Payment from "./pages/driver/Payment";
 import Subscriptions from "./pages/driver/Subscriptions";
+import BookingHistory from "./pages/driver/BookingHistory";
 
 // Staff pages
 import StaffDashboard from "./pages/staff/Dashboard";
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/driver/reservation" element={<Reservation />} />
           <Route path="/driver/payment" element={<Payment />} />
           <Route path="/driver/subscriptions" element={<Subscriptions />} />
+          <Route path="/driver/booking-history" element={<BookingHistory />} />
           
           {/* Staff routes */}
           <Route path="/staff" element={<StaffDashboard />} />
