@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, CreditCard, QrCode, Wallet } from "lucide-react";
+import { ArrowLeft, CreditCard, QrCode, Wallet, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Payment = () => {
@@ -109,6 +109,13 @@ const Payment = () => {
                   <Button className="w-full" size="lg">
                     Thanh toán & Nhận QR
                   </Button>
+                  
+                  <Link to="/driver" className="block">
+                    <Button variant="outline" className="w-full" size="lg">
+                      <Home className="h-4 w-4 mr-2" />
+                      Về Dashboard
+                    </Button>
+                  </Link>
                   
                   <div className="text-center p-4 bg-electric-blue-light rounded-lg">
                     <QrCode className="h-16 w-16 mx-auto mb-2 text-electric-blue" />
