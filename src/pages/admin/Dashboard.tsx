@@ -64,49 +64,6 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        {/* Battery Dispatch Status */}
-        <Card className="mb-8 animate-scale-in">
-          <CardHeader>
-            <CardTitle>Điều phối pin giữa các trạm</CardTitle>
-            <CardDescription>
-              Tình trạng phân phối và chuyển pin giữa các trạm
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-4 border rounded-lg hover-glow">
-                <div>
-                  <h3 className="font-semibold">Trạm Quận 1 → Trạm Quận 3</h3>
-                  <p className="text-sm text-muted-foreground">Đang chuyển 15 pin đầy</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-warning">Đang vận chuyển</p>
-                  <p className="text-sm text-muted-foreground">Dự kiến: 2 giờ</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between p-4 border rounded-lg hover-glow">
-                <div>
-                  <h3 className="font-semibold">Trạm Bình Thạnh → Trạm Quận 1</h3>
-                  <p className="text-sm text-muted-foreground">Chuyển 20 pin hỏng để bảo trì</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-success">Hoàn thành</p>
-                  <p className="text-sm text-muted-foreground">30 phút trước</p>
-                </div>
-              </div>
-              <div className="flex items-center justify-between p-4 border rounded-lg hover-glow">
-                <div>
-                  <h3 className="font-semibold">Kho trung tâm → Trạm Quận 7</h3>
-                  <p className="text-sm text-muted-foreground">Bổ sung 25 pin mới</p>
-                </div>
-                <div className="text-right">
-                  <p className="font-bold text-electric-blue">Đã lên lịch</p>
-                  <p className="text-sm text-muted-foreground">Sáng mai 8:00</p>
-                </div>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
 
         {/* Quick Actions */}
         <div className="grid md:grid-cols-2 gap-6">

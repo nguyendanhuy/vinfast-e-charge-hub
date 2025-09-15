@@ -162,6 +162,101 @@ const BatteryDispatch = () => {
           ))}
         </div>
 
+        {/* AI Heuristic Suggestions */}
+        <Card className="mb-8 animate-slide-up">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Battery className="h-6 w-6 mr-2 text-electric-blue" />
+              Gợi ý điều phối từ thuật toán AI
+            </CardTitle>
+            <CardDescription>
+              Hệ thống AI phân tích và đưa ra các gợi ý điều phối pin tối ưu
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div className="bg-gradient-to-r from-warning/10 to-orange-100/50 border border-warning/20 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <AlertCircle className="h-5 w-5 text-warning" />
+                    <span className="font-semibold text-warning">Ưu tiên cao</span>
+                  </div>
+                  <Badge className="bg-warning text-warning-foreground">Khuyến nghị</Badge>
+                </div>
+                <div className="flex items-center space-x-4 mb-2">
+                  <span className="font-semibold">Trạm Quận 7</span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                  <span className="font-semibold">Kho trung tâm</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Chuyển 10 pin hỏng về bảo trì - Trạm đang quá tải pin hỏng
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium">Độ tin cậy: 92%</span>
+                  <Button size="sm" variant="outline">
+                    Áp dụng gợi ý
+                  </Button>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-electric-blue/10 to-blue-100/50 border border-electric-blue/20 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <CheckCircle className="h-5 w-5 text-electric-blue" />
+                    <span className="font-semibold text-electric-blue">Ưu tiên trung bình</span>
+                  </div>
+                  <Badge className="bg-electric-blue text-white">Tối ưu hóa</Badge>
+                </div>
+                <div className="flex items-center space-x-4 mb-2">
+                  <span className="font-semibold">Kho trung tâm</span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                  <span className="font-semibold">Trạm Quận 7</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Bổ sung 20 pin đầy - Cân bằng tải giữa các trạm trong khu vực
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium">Độ tin cậy: 85%</span>
+                  <Button size="sm" variant="outline">
+                    Áp dụng gợi ý
+                  </Button>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-success/10 to-green-100/50 border border-success/20 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <Clock className="h-5 w-5 text-success" />
+                    <span className="font-semibold text-success">Ưu tiên thấp</span>
+                  </div>
+                  <Badge className="bg-success text-success-foreground">Dự phòng</Badge>
+                </div>
+                <div className="flex items-center space-x-4 mb-2">
+                  <span className="font-semibold">Trạm Bình Thạnh</span>
+                  <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                  <span className="font-semibold">Trạm Quận 3</span>
+                </div>
+                <p className="text-sm text-muted-foreground mb-2">
+                  Cân bằng 8 pin đầy - Chuẩn bị cho ca sáng mai
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium">Độ tin cậy: 78%</span>
+                  <Button size="sm" variant="outline">
+                    Áp dụng gợi ý
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            <div className="flex justify-center mt-6">
+              <Button variant="outline">
+                <Battery className="h-4 w-4 mr-2" />
+                Cập nhật gợi ý AI
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Controls */}
         <Card className="mb-8 animate-slide-up">
           <CardHeader>
