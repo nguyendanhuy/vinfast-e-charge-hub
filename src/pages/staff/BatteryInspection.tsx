@@ -8,8 +8,10 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Label } from "@/components/ui/label";
 import { Search, ArrowLeft, AlertTriangle, CheckCircle, Wrench } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const BatteryInspection = () => {
+  const { toast } = useToast();
   const [selectedBattery, setSelectedBattery] = useState(null);
   const [inspectionType, setInspectionType] = useState("");
 
@@ -46,6 +48,21 @@ const BatteryInspection = () => {
   const MaintenanceForm = ({ battery, onClose }) => {
     const [damageDescription, setDamageDescription] = useState("");
     const [sohValue, setSohValue] = useState("");
+
+    const handleSubmit = () => {
+      if (inspectionType === "maintenance") {
+        toast({
+          title: "Gửi pin bảo trì thành công",
+          description: `Pin ${battery.id} đã được gửi đi bảo trì. Hệ thống sẽ theo dõi tiến độ.`,
+        });
+      } else if (inspectionType === "continue") {
+        toast({
+          title: "Cập nhật SoH thành công", 
+          description: `Pin ${battery.id} đã được cập nhật SoH mới: ${sohValue}%`,
+        });
+      }
+      onClose();
+    };
 
     return (
       <div className="space-y-4">
@@ -87,10 +104,7 @@ const BatteryInspection = () => {
         <div className="flex gap-3 pt-4">
           <Button 
             className="flex-1"
-            onClick={() => {
-              // Handle submission
-              onClose();
-            }}
+            onClick={handleSubmit}
           >
             {inspectionType === "maintenance" ? "Gửi bảo trì" : "Cập nhật SoH"}
           </Button>
