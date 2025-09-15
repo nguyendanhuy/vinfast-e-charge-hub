@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { QrCode, ArrowLeft, Battery, CheckCircle, User } from "lucide-react";
+import { QrCode, ArrowLeft, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const QRCheckIn = () => {
+  const { toast } = useToast();
   const [scannedCustomer, setScannedCustomer] = useState(null);
   const [isScanning, setIsScanning] = useState(false);
 
@@ -25,6 +27,11 @@ const QRCheckIn = () => {
     setTimeout(() => {
       setScannedCustomer(mockCustomer);
       setIsScanning(false);
+      // Auto-approve the check-in
+      toast({
+        title: "Check-in thành công",
+        description: `Đã xác nhận đặt lịch cho khách hàng ${mockCustomer.name}`,
+      });
     }, 2000);
   };
 
@@ -115,40 +122,6 @@ const QRCheckIn = () => {
                       {mockCustomer.paymentStatus}
                     </Badge>
                   </div>
-                </div>
-
-                <div className="border-t pt-4">
-                  <h3 className="font-semibold mb-4">Quy trình đổi pin</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center p-3 border rounded-lg">
-                      <div className="w-8 h-8 rounded-full bg-electric-blue text-white flex items-center justify-center mr-3 text-sm font-bold">
-                        1
-                      </div>
-                      <span>Kiểm tra xe và pin cũ</span>
-                    </div>
-                    <div className="flex items-center p-3 border rounded-lg">
-                      <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center mr-3 text-sm font-bold">
-                        2
-                      </div>
-                      <span>Tháo pin cũ và gắn pin mới</span>
-                    </div>
-                    <div className="flex items-center p-3 border rounded-lg">
-                      <div className="w-8 h-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center mr-3 text-sm font-bold">
-                        3
-                      </div>
-                      <span>Kiểm tra hoạt động và hoàn thành</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 pt-4">
-                  <Button className="flex-1" size="lg">
-                    <Battery className="h-4 w-4 mr-2" />
-                    Bắt đầu đổi pin
-                  </Button>
-                  <Button variant="outline" className="flex-1" size="lg">
-                    Từ chối
-                  </Button>
                 </div>
               </CardContent>
             </Card>
