@@ -181,75 +181,43 @@ const BookingHistory = () => {
                         <Badge variant={getMethodColor(booking.bookingMethod)}>{booking.bookingMethod}</Badge>
                       </div>
                     </div>
-                    {booking.canCancel && (
-                      <Dialog open={cancelDialogOpen} onOpenChange={setCancelDialogOpen}>
+                    {!booking.canCancel && booking.status !== "Đã cọc" && (
+                      <Dialog>
                         <DialogTrigger asChild>
                           <Button 
-                            variant="destructive" 
+                            variant="default" 
                             size="sm"
-                            onClick={() => setSelectedBooking(booking)}
                           >
-                            <X className="h-4 w-4 mr-1" />
-                            Hủy cọc
+                            <CreditCard className="h-4 w-4 mr-1" />
+                            Xem QR
                           </Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md">
                           <DialogHeader>
-                            <DialogTitle>Hủy đặt cọc</DialogTitle>
+                            <DialogTitle>QR Code đổi pin</DialogTitle>
                             <DialogDescription>
-                              Nhập thông tin ngân hàng để chúng tôi hoàn tiền cọc cho bạn
+                              Xuất trình QR này cho nhân viên tại trạm để đổi pin
                             </DialogDescription>
                           </DialogHeader>
                           
-                          <div className="space-y-4">
-                            <div>
-                              <Label htmlFor="accountNumber">Số tài khoản *</Label>
-                              <Input
-                                id="accountNumber"
-                                value={bankInfo.accountNumber}
-                                onChange={(e) => setBankInfo({...bankInfo, accountNumber: e.target.value})}
-                                placeholder="Nhập số tài khoản ngân hàng"
-                              />
+                          <div className="text-center p-6">
+                            <div className="w-48 h-48 mx-auto bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                              <div className="text-center">
+                                <CreditCard className="h-16 w-16 mx-auto mb-2 text-electric-blue" />
+                                <p className="text-sm font-medium">QR Code #{booking.id}</p>
+                              </div>
                             </div>
-                            
-                            <div>
-                              <Label htmlFor="bankName">Tên ngân hàng *</Label>
-                              <Input
-                                id="bankName"
-                                value={bankInfo.bankName}
-                                onChange={(e) => setBankInfo({...bankInfo, bankName: e.target.value})}
-                                placeholder="Ví dụ: Vietcombank, BIDV, ..."
-                              />
-                            </div>
-                            
-                            <div>
-                              <Label htmlFor="accountHolder">Chủ tài khoản *</Label>
-                              <Input
-                                id="accountHolder"
-                                value={bankInfo.accountHolder}
-                                onChange={(e) => setBankInfo({...bankInfo, accountHolder: e.target.value})}
-                                placeholder="Họ và tên chủ tài khoản"
-                              />
-                            </div>
-                            
-                            <div>
-                              <Label htmlFor="reason">Lý do hủy (tùy chọn)</Label>
-                              <Textarea
-                                id="reason"
-                                value={bankInfo.reason}
-                                onChange={(e) => setBankInfo({...bankInfo, reason: e.target.value})}
-                                placeholder="Nêu rõ lý do hủy đặt cọc..."
-                                rows={3}
-                              />
-                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              Mã đặt chỗ: {booking.id}
+                            </p>
+                            <p className="text-sm text-muted-foreground">
+                              Trạm: {booking.stationLocation}
+                            </p>
                           </div>
 
-                          <DialogFooter className="flex-col sm:flex-row gap-2">
-                            <Button variant="outline" onClick={() => setCancelDialogOpen(false)}>
-                              Hủy bỏ
-                            </Button>
-                            <Button variant="destructive" onClick={handleCancelBooking}>
-                              Xác nhận hủy cọc
+                          <DialogFooter>
+                            <Button variant="outline" className="w-full">
+                              Đóng
                             </Button>
                           </DialogFooter>
                         </DialogContent>

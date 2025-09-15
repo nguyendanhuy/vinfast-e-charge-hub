@@ -83,15 +83,15 @@ const StaffDashboard = () => {
             <CardHeader>
               <CardTitle className="flex items-center text-electric-blue">
                 <CreditCard className="h-6 w-6 mr-2" />
-                Thanh toán Pay-per-swap
+                Lịch sử giao dịch
               </CardTitle>
               <CardDescription>
-                Xử lý thanh toán cho khách hàng đặt cọc
+                Theo dõi lịch sử giao dịch đã xác nhận
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Link to="/staff/pay-per-swap">
-                <Button className="w-full">Thanh toán</Button>
+              <Link to="/staff/transaction-history">
+                <Button className="w-full">Xem lịch sử</Button>
               </Link>
             </CardContent>
           </Card>

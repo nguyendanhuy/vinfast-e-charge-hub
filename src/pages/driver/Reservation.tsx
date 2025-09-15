@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Calendar as CalendarIcon, Clock, MapPin } from "lucide-react";
+import { ArrowLeft, Calendar as CalendarIcon, Clock, MapPin, Battery } from "lucide-react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
@@ -13,6 +13,7 @@ const Reservation = () => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedStation, setSelectedStation] = useState("");
+  const [selectedBatteryType, setSelectedBatteryType] = useState("");
 
   const timeSlots = [
     "08:00", "08:30", "09:00", "09:30", "10:00", "10:30",
@@ -21,9 +22,39 @@ const Reservation = () => {
   ];
 
   const stations = [
-    { id: "1", name: "Trạm Quận 1", address: "123 Nguyễn Huệ", available: 8 },
-    { id: "2", name: "Trạm Quận 3", address: "456 Lê Văn Sỹ", available: 5 },
-    { id: "3", name: "Trạm Bình Thạnh", address: "789 Xô Viết Nghệ Tĩnh", available: 12 }
+    { 
+      id: "1", 
+      name: "Trạm Quận 1", 
+      address: "123 Nguyễn Huệ", 
+      available: 8,
+      batteryTypes: {
+        "Lithium-ion": 5,
+        "Pin LFP": 3,
+        "Ắc quy chì": 0
+      }
+    },
+    { 
+      id: "2", 
+      name: "Trạm Quận 3", 
+      address: "456 Lê Văn Sỹ", 
+      available: 5,
+      batteryTypes: {
+        "Lithium-ion": 3,
+        "Pin LFP": 2,
+        "Ắc quy chì": 0
+      }
+    },
+    { 
+      id: "3", 
+      name: "Trạm Bình Thạnh", 
+      address: "789 Xô Viết Nghệ Tĩnh", 
+      available: 12,
+      batteryTypes: {
+        "Lithium-ion": 8,
+        "Pin LFP": 4,
+        "Ắc quy chì": 0
+      }
+    }
   ];
 
   return (
@@ -107,6 +138,49 @@ const Reservation = () => {
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="animate-slide-up">
+              <CardHeader>
+                <CardTitle>Chọn loại pin</CardTitle>
+                <CardDescription>Chọn loại pin phù hợp với xe của bạn</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {selectedStation && (
+                  <div className="space-y-3">
+                    {Object.entries(stations.find(s => s.id === selectedStation)?.batteryTypes || {}).map(([type, count]) => (
+                      count > 0 && (
+                        <div
+                          key={type}
+                          className={`flex items-center justify-between p-3 border rounded-lg cursor-pointer transition-colors ${
+                            selectedBatteryType === type ? 'border-electric-blue bg-electric-blue/5' : 'hover:border-gray-300'
+                          }`}
+                          onClick={() => setSelectedBatteryType(type)}
+                        >
+                          <div className="flex items-center">
+                            <Battery className="h-5 w-5 text-electric-blue mr-2" />
+                            <div>
+                              <p className={`font-medium ${type === "Lithium-ion" ? "text-electric-blue" : ""}`}>
+                                {type}
+                                {type === "Lithium-ion" && " (Khuyến nghị)"}
+                              </p>
+                              <p className="text-sm text-muted-foreground">{count} pin có sẵn</p>
+                            </div>
+                          </div>
+                          {selectedBatteryType === type && (
+                            <div className="w-4 h-4 rounded-full bg-electric-blue flex items-center justify-center">
+                              <div className="w-2 h-2 rounded-full bg-white"></div>
+                            </div>
+                          )}
+                        </div>
+                      )
+                    ))}
+                  </div>
+                )}
+                {!selectedStation && (
+                  <p className="text-muted-foreground text-center py-4">Vui lòng chọn trạm trước</p>
+                )}
+              </CardContent>
+            </Card>
           </div>
 
           {/* Booking Summary */}
@@ -140,6 +214,13 @@ const Reservation = () => {
                   </div>
                 )}
 
+                {selectedBatteryType && (
+                  <div className="flex items-center space-x-3">
+                    <Battery className="h-5 w-5 text-electric-blue" />
+                    <p>{selectedBatteryType}</p>
+                  </div>
+                )}
+
                 <div className="border-t pt-4">
                   <div className="flex justify-between mb-2">
                     <span>Phí đổi pin:</span>
@@ -156,7 +237,7 @@ const Reservation = () => {
                     <Button 
                       className="w-full" 
                       size="lg"
-                      disabled={!selectedStation || !selectedDate || !selectedTime}
+                      disabled={!selectedStation || !selectedDate || !selectedTime || !selectedBatteryType}
                     >
                       Tiến hành thanh toán
                     </Button>

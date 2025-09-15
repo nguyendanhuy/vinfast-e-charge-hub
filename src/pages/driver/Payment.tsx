@@ -31,39 +31,6 @@ const Payment = () => {
       <div className="container mx-auto p-6">
         <div className="grid lg:grid-cols-2 gap-8">
           <div className="space-y-6">
-            {/* Payment Options */}
-            <Card className="animate-fade-in">
-              <CardHeader>
-                <CardTitle>Chọn phương thức thanh toán</CardTitle>
-                <CardDescription>Thanh toán toàn bộ hoặc đặt cọc giữ chỗ</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-2 p-4 border rounded-lg">
-                      <RadioGroupItem value="full" id="full" />
-                      <Label htmlFor="full" className="flex-1">
-                        <div>
-                          <p className="font-medium">Thanh toán toàn bộ</p>
-                          <p className="text-sm text-muted-foreground">Thanh toán 150,000 VNĐ và nhận QR code ngay</p>
-                        </div>
-                      </Label>
-                      <Badge variant="secondary">Khuyến nghị</Badge>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2 p-4 border rounded-lg">
-                      <RadioGroupItem value="deposit" id="deposit" />
-                      <Label htmlFor="deposit" className="flex-1">
-                        <div>
-                          <p className="font-medium">Đặt cọc giữ chỗ</p>
-                          <p className="text-sm text-muted-foreground">Đặt cọc 50,000 VNĐ, thanh toán phần còn lại tại trạm</p>
-                        </div>
-                      </Label>
-                    </div>
-                  </div>
-                </RadioGroup>
-              </CardContent>
-            </Card>
 
             {/* Payment Methods */}
             <Card className="animate-slide-up">
@@ -129,40 +96,25 @@ const Payment = () => {
                     <span>Phí dịch vụ:</span>
                     <span>150,000 VNĐ</span>
                   </div>
-                  {paymentMethod === "deposit" && (
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>Đặt cọc:</span>
-                      <span>50,000 VNĐ</span>
-                    </div>
-                  )}
                 </div>
 
                 <div className="border-t pt-4">
                   <div className="flex justify-between text-lg font-bold">
                     <span>Số tiền thanh toán:</span>
-                    <span className="text-electric-blue">
-                      {paymentMethod === "full" ? "150,000" : "50,000"} VNĐ
-                    </span>
+                    <span className="text-electric-blue">150,000 VNĐ</span>
                   </div>
-                  {paymentMethod === "deposit" && (
-                    <p className="text-sm text-muted-foreground mt-2">
-                      Còn lại 100,000 VNĐ thanh toán tại trạm
-                    </p>
-                  )}
                 </div>
 
                 <div className="space-y-3 pt-4">
                   <Button className="w-full" size="lg">
-                    {paymentMethod === "full" ? "Thanh toán & Nhận QR" : "Đặt cọc"}
+                    Thanh toán & Nhận QR
                   </Button>
                   
-                  {paymentMethod === "full" && (
-                    <div className="text-center p-4 bg-electric-blue-light rounded-lg">
-                      <QrCode className="h-16 w-16 mx-auto mb-2 text-electric-blue" />
-                      <p className="text-sm font-medium">QR Code sẽ được tạo sau khi thanh toán</p>
-                      <p className="text-xs text-muted-foreground">Xuất trình QR này tại trạm để đổi pin</p>
-                    </div>
-                  )}
+                  <div className="text-center p-4 bg-electric-blue-light rounded-lg">
+                    <QrCode className="h-16 w-16 mx-auto mb-2 text-electric-blue" />
+                    <p className="text-sm font-medium">QR Code sẽ được tạo sau khi thanh toán</p>
+                    <p className="text-xs text-muted-foreground">Xuất trình QR này tại trạm để đổi pin</p>
+                  </div>
                 </div>
               </CardContent>
             </Card>

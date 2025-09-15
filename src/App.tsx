@@ -18,7 +18,7 @@ import BookingHistory from "./pages/driver/BookingHistory";
 // Staff pages
 import StaffDashboard from "./pages/staff/Dashboard";
 import QRCheckIn from "./pages/staff/QRCheckIn";
-import PayPerSwap from "./pages/staff/PayPerSwap";
+import TransactionHistory from "./pages/staff/TransactionHistory";
 import BatteryInventory from "./pages/staff/BatteryInventory";
 import BatteryInspection from "./pages/staff/BatteryInspection";
 
@@ -49,7 +49,7 @@ const App = () => (
           {/* Staff routes */}
           <Route path="/staff" element={<StaffDashboard />} />
           <Route path="/staff/qr-checkin" element={<QRCheckIn />} />
-          <Route path="/staff/pay-per-swap" element={<PayPerSwap />} />
+          <Route path="/staff/transaction-history" element={<TransactionHistory />} />
           <Route path="/staff/battery-inventory" element={<BatteryInventory />} />
           <Route path="/staff/battery-inspection" element={<BatteryInspection />} />
           

@@ -21,6 +21,11 @@ const StationFinder = () => {
       address: "123 Nguyễn Huệ, Quận 1, TP.HCM",
       distance: "2.5 km",
       batteries: { full: 8, charging: 3, empty: 1 },
+      batteryTypes: {
+        "Lithium-ion": { full: 5, charging: 2, empty: 1 },
+        "Pin LFP": { full: 3, charging: 1, empty: 0 },
+        "Ắc quy chì": { full: 0, charging: 0, empty: 0 }
+      },
       crowdLevel: "Thấp",
       status: "Hoạt động"
     },
@@ -30,6 +35,11 @@ const StationFinder = () => {
       address: "456 Lê Văn Sỹ, Quận 3, TP.HCM",
       distance: "4.2 km",
       batteries: { full: 5, charging: 5, empty: 2 },
+      batteryTypes: {
+        "Lithium-ion": { full: 3, charging: 3, empty: 1 },
+        "Pin LFP": { full: 2, charging: 2, empty: 1 },
+        "Ắc quy chì": { full: 0, charging: 0, empty: 0 }
+      },
       crowdLevel: "Trung bình",
       status: "Hoạt động"
     },
@@ -39,6 +49,11 @@ const StationFinder = () => {
       address: "789 Xô Viết Nghệ Tĩnh, Bình Thạnh, TP.HCM",
       distance: "6.1 km",
       batteries: { full: 12, charging: 2, empty: 1 },
+      batteryTypes: {
+        "Lithium-ion": { full: 8, charging: 1, empty: 1 },
+        "Pin LFP": { full: 4, charging: 1, empty: 0 },
+        "Ắc quy chì": { full: 0, charging: 0, empty: 0 }
+      },
       crowdLevel: "Cao",
       status: "Hoạt động"
     }
@@ -152,24 +167,40 @@ const StationFinder = () => {
                   <Badge variant="secondary">{station.status}</Badge>
                 </div>
 
-                <div className="grid grid-cols-4 gap-4 mb-4">
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-success">{station.batteries.full}</div>
-                    <div className="text-sm text-muted-foreground">Pin đầy</div>
+                <div className="grid grid-cols-2 gap-4 mb-4">
+                  <div>
+                    <div className="grid grid-cols-3 gap-2 text-center mb-2">
+                      <div>
+                        <div className="text-lg font-bold text-success">{station.batteries.full}</div>
+                        <div className="text-xs text-muted-foreground">Pin đầy</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-charging">{station.batteries.charging}</div>
+                        <div className="text-xs text-muted-foreground">Đang sạc</div>
+                      </div>
+                      <div>
+                        <div className="text-lg font-bold text-muted-foreground">{station.batteries.empty}</div>
+                        <div className="text-xs text-muted-foreground">Pin rỗng</div>
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <Badge variant={station.crowdLevel === "Thấp" ? "secondary" : station.crowdLevel === "Trung bình" ? "default" : "destructive"}>
+                        {station.crowdLevel}
+                      </Badge>
+                      <div className="text-xs text-muted-foreground">Đông người</div>
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-charging">{station.batteries.charging}</div>
-                    <div className="text-sm text-muted-foreground">Đang sạc</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-muted-foreground">{station.batteries.empty}</div>
-                    <div className="text-sm text-muted-foreground">Pin rỗng</div>
-                  </div>
-                  <div className="text-center">
-                    <Badge variant={station.crowdLevel === "Thấp" ? "secondary" : station.crowdLevel === "Trung bình" ? "default" : "destructive"}>
-                      {station.crowdLevel}
-                    </Badge>
-                    <div className="text-sm text-muted-foreground">Đông người</div>
+                  
+                  <div className="space-y-2">
+                    <h4 className="text-sm font-medium">Loại pin có sẵn:</h4>
+                    {Object.entries(station.batteryTypes).map(([type, counts]) => (
+                      counts.full > 0 && (
+                        <div key={type} className="flex justify-between text-sm">
+                          <span className={type === "Lithium-ion" ? "text-electric-blue font-medium" : ""}>{type}:</span>
+                          <span className="text-success font-medium">{counts.full} pin</span>
+                        </div>
+                      )
+                    ))}
                   </div>
                 </div>
 
