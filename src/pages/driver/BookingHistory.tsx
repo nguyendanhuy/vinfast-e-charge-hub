@@ -6,7 +6,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { ArrowLeft, Calendar, MapPin, Car, Battery, CreditCard, X, Home } from "lucide-react";
+import { ArrowLeft, Calendar, MapPin, Car, Battery, CreditCard, X, Home, AlertTriangle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 import batteryIcon from "@/assets/battery-icon.jpg";
@@ -15,6 +15,7 @@ const BookingHistory = () => {
   const { toast } = useToast();
   const [selectedBooking, setSelectedBooking] = useState(null);
   const [cancelDialogOpen, setCancelDialogOpen] = useState(false);
+  const [cancelDepositDialogOpen, setCancelDepositDialogOpen] = useState(false);
   const [bankInfo, setBankInfo] = useState({
     accountNumber: "",
     bankName: "",
@@ -79,6 +80,14 @@ const BookingHistory = () => {
     
     setCancelDialogOpen(false);
     setBankInfo({ accountNumber: "", bankName: "", accountHolder: "", reason: "" });
+  };
+
+  const handleCancelDeposit = () => {
+    toast({
+      title: "Yêu cầu hủy cọc đã được gửi",
+      description: "Chúng tôi sẽ xử lý và hoàn tiền trong vòng 24h",
+    });
+    setCancelDepositDialogOpen(false);
   };
 
   const getStatusColor = (status) => {
@@ -181,48 +190,100 @@ const BookingHistory = () => {
                         <Badge variant={getMethodColor(booking.bookingMethod)}>{booking.bookingMethod}</Badge>
                       </div>
                     </div>
-                    {!booking.canCancel && booking.status !== "Đã cọc" && (
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button 
-                            variant="default" 
-                            size="sm"
-                          >
-                            <CreditCard className="h-4 w-4 mr-1" />
-                            Xem QR
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="sm:max-w-md">
-                          <DialogHeader>
-                            <DialogTitle>QR Code đổi pin</DialogTitle>
-                            <DialogDescription>
-                              Xuất trình QR này cho nhân viên tại trạm để đổi pin
-                            </DialogDescription>
-                          </DialogHeader>
-                          
-                          <div className="text-center p-6">
-                            <div className="w-48 h-48 mx-auto bg-gray-100 rounded-lg flex items-center justify-center mb-4">
-                              <div className="text-center">
-                                <CreditCard className="h-16 w-16 mx-auto mb-2 text-electric-blue" />
-                                <p className="text-sm font-medium">QR Code #{booking.id}</p>
-                              </div>
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                              Mã đặt chỗ: {booking.id}
-                            </p>
-                            <p className="text-sm text-muted-foreground">
-                              Trạm: {booking.stationLocation}
-                            </p>
-                          </div>
-
-                          <DialogFooter>
-                            <Button variant="outline" className="w-full">
-                              Đóng
+                    <div className="flex space-x-2">
+                      {booking.canCancel && booking.status === "Đã cọc" && (
+                        <Dialog open={cancelDepositDialogOpen} onOpenChange={setCancelDepositDialogOpen}>
+                          <DialogTrigger asChild>
+                            <Button 
+                              variant="destructive" 
+                              size="sm"
+                              onClick={() => setSelectedBooking(booking)}
+                            >
+                              <X className="h-4 w-4 mr-1" />
+                              Hủy cọc
                             </Button>
-                          </DialogFooter>
-                        </DialogContent>
-                      </Dialog>
-                    )}
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle>Xác nhận hủy cọc</DialogTitle>
+                              <DialogDescription>
+                                Bạn có chắc chắn muốn hủy cọc cho đặt chỗ #{selectedBooking?.id}?
+                              </DialogDescription>
+                            </DialogHeader>
+                            
+                            <div className="text-center p-6">
+                              <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-warning" />
+                              <p className="text-sm mb-2">
+                                <strong>Số tiền cọc:</strong> {selectedBooking?.amount} VNĐ
+                              </p>
+                              <p className="text-sm text-muted-foreground mb-4">
+                                Tiền cọc sẽ được hoàn lại trong vòng 24 giờ
+                              </p>
+                            </div>
+
+                            <DialogFooter className="flex space-x-2">
+                              <Button 
+                                variant="outline" 
+                                onClick={() => setCancelDepositDialogOpen(false)}
+                                className="flex-1"
+                              >
+                                Hủy
+                              </Button>
+                              <Button 
+                                variant="destructive" 
+                                onClick={handleCancelDeposit}
+                                className="flex-1"
+                              >
+                                Xác nhận hủy cọc
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      )}
+                      
+                      {!booking.canCancel && booking.status !== "Đã cọc" && (
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button 
+                              variant="default" 
+                              size="sm"
+                            >
+                              <CreditCard className="h-4 w-4 mr-1" />
+                              Xem QR
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle>QR Code đổi pin</DialogTitle>
+                              <DialogDescription>
+                                Xuất trình QR này cho nhân viên tại trạm để đổi pin
+                              </DialogDescription>
+                            </DialogHeader>
+                            
+                            <div className="text-center p-6">
+                              <div className="w-48 h-48 mx-auto bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                                <div className="text-center">
+                                  <CreditCard className="h-16 w-16 mx-auto mb-2 text-electric-blue" />
+                                  <p className="text-sm font-medium">QR Code #{booking.id}</p>
+                                </div>
+                              </div>
+                              <p className="text-sm text-muted-foreground">
+                                Mã đặt chỗ: {booking.id}
+                              </p>
+                              <p className="text-sm text-muted-foreground">
+                                Trạm: {booking.stationLocation}
+                              </p>
+                            </div>
+
+                            <DialogFooter>
+                              <Button variant="outline" className="w-full">
+                                Đóng
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
