@@ -64,44 +64,44 @@ const AdminDashboard = () => {
           </Card>
         </div>
 
-        {/* Popular Stations */}
+        {/* Battery Dispatch Status */}
         <Card className="mb-8 animate-scale-in">
           <CardHeader>
-            <CardTitle>Trạm phổ biến nhất</CardTitle>
+            <CardTitle>Điều phối pin giữa các trạm</CardTitle>
             <CardDescription>
-              Top trạm có lượng giao dịch cao nhất trong tuần
+              Tình trạng phân phối và chuyển pin giữa các trạm
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 border rounded-lg hover-glow">
                 <div>
-                  <h3 className="font-semibold">Trạm Quận 1</h3>
-                  <p className="text-sm text-muted-foreground">123 Nguyễn Huệ, Quận 1</p>
+                  <h3 className="font-semibold">Trạm Quận 1 → Trạm Quận 3</h3>
+                  <p className="text-sm text-muted-foreground">Đang chuyển 15 pin đầy</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-electric-blue">89 giao dịch</p>
-                  <p className="text-sm text-muted-foreground">Tuần này</p>
+                  <p className="font-bold text-warning">Đang vận chuyển</p>
+                  <p className="text-sm text-muted-foreground">Dự kiến: 2 giờ</p>
                 </div>
               </div>
               <div className="flex items-center justify-between p-4 border rounded-lg hover-glow">
                 <div>
-                  <h3 className="font-semibold">Trạm Bình Thạnh</h3>
-                  <p className="text-sm text-muted-foreground">789 Xô Viết Nghệ Tĩnh</p>
+                  <h3 className="font-semibold">Trạm Bình Thạnh → Trạm Quận 1</h3>
+                  <p className="text-sm text-muted-foreground">Chuyển 20 pin hỏng để bảo trì</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-electric-blue">76 giao dịch</p>
-                  <p className="text-sm text-muted-foreground">Tuần này</p>
+                  <p className="font-bold text-success">Hoàn thành</p>
+                  <p className="text-sm text-muted-foreground">30 phút trước</p>
                 </div>
               </div>
               <div className="flex items-center justify-between p-4 border rounded-lg hover-glow">
                 <div>
-                  <h3 className="font-semibold">Trạm Quận 3</h3>
-                  <p className="text-sm text-muted-foreground">456 Lê Văn Sỹ, Quận 3</p>
+                  <h3 className="font-semibold">Kho trung tâm → Trạm Quận 7</h3>
+                  <p className="text-sm text-muted-foreground">Bổ sung 25 pin mới</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-electric-blue">64 giao dịch</p>
-                  <p className="text-sm text-muted-foreground">Tuần này</p>
+                  <p className="font-bold text-electric-blue">Đã lên lịch</p>
+                  <p className="text-sm text-muted-foreground">Sáng mai 8:00</p>
                 </div>
               </div>
             </div>
@@ -130,17 +130,19 @@ const AdminDashboard = () => {
           <Card className="hover-glow">
             <CardHeader>
               <CardTitle className="flex items-center text-electric-blue">
-                <MapPin className="h-6 w-6 mr-2" />
-                Quản lý trạm
+                <Battery className="h-6 w-6 mr-2" />
+                Điều phối pin
               </CardTitle>
               <CardDescription>
-                Theo dõi trạng thái và hiệu suất từng trạm
+                Quản lý phân phối và chuyển pin giữa các trạm
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full" variant="outline">
-                Quản lý trạm
-              </Button>
+              <Link to="/admin/battery-dispatch">
+                <Button className="w-full" variant="outline">
+                  Điều phối pin
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>
