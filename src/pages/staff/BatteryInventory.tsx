@@ -5,12 +5,37 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
 import { Battery, ArrowLeft, Search, Edit, Trash, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useToast } from "@/hooks/use-toast";
 
 const BatteryInventory = () => {
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingBattery, setEditingBattery] = useState(null);
+  
+  // Form states for adding battery
+  const [newBattery, setNewBattery] = useState({
+    id: "",
+    type: "",
+    status: "empty",
+    soh: "100",
+    location: ""
+  });
+
+  // Form states for editing battery
+  const [editBattery, setEditBattery] = useState({
+    id: "",
+    type: "",
+    status: "",
+    soh: "",
+    location: ""
+  });
 
   const batteries = [
     {
@@ -72,6 +97,35 @@ const BatteryInventory = () => {
     full: batteries.filter(b => b.status === "full").length,
     charging: batteries.filter(b => b.status === "charging").length,
     empty: batteries.filter(b => b.status === "empty").length
+  };
+
+  const handleAddBattery = () => {
+    toast({
+      title: "Thêm pin thành công",
+      description: `Pin ${newBattery.id} đã được thêm vào kho`,
+    });
+    setNewBattery({ id: "", type: "", status: "empty", soh: "100", location: "" });
+    setIsAddDialogOpen(false);
+  };
+
+  const handleEditBattery = (battery) => {
+    setEditingBattery(battery);
+    setEditBattery({
+      id: battery.id,
+      type: battery.type,
+      status: battery.status,
+      soh: battery.soh.replace('%', ''),
+      location: battery.location
+    });
+    setIsEditDialogOpen(true);
+  };
+
+  const handleUpdateBattery = () => {
+    toast({
+      title: "Cập nhật pin thành công",
+      description: `Thông tin pin ${editBattery.id} đã được cập nhật`,
+    });
+    setIsEditDialogOpen(false);
   };
 
   return (
@@ -153,10 +207,95 @@ const BatteryInventory = () => {
                 <Search className="h-4 w-4 mr-2" />
                 Tìm kiếm
               </Button>
-              <Button variant="outline">
-                <Plus className="h-4 w-4 mr-2" />
-                Thêm pin
-              </Button>
+              <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Thêm pin
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Thêm pin mới</DialogTitle>
+                    <DialogDescription>
+                      Nhập thông tin chi tiết của pin mới để thêm vào kho
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="battery-id" className="text-right">
+                        Mã pin
+                      </Label>
+                      <Input
+                        id="battery-id"
+                        value={newBattery.id}
+                        onChange={(e) => setNewBattery({...newBattery, id: e.target.value})}
+                        className="col-span-3"
+                        placeholder="BAT006"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="battery-type" className="text-right">
+                        Loại pin
+                      </Label>
+                      <Select value={newBattery.type} onValueChange={(value) => setNewBattery({...newBattery, type: value})}>
+                        <SelectTrigger className="col-span-3">
+                          <SelectValue placeholder="Chọn loại pin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="Lithium-ion">Lithium-ion</SelectItem>
+                          <SelectItem value="Pin LFP">Pin LFP</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="battery-status" className="text-right">
+                        Trạng thái
+                      </Label>
+                      <Select value={newBattery.status} onValueChange={(value) => setNewBattery({...newBattery, status: value})}>
+                        <SelectTrigger className="col-span-3">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="full">Pin đầy</SelectItem>
+                          <SelectItem value="charging">Đang sạc</SelectItem>
+                          <SelectItem value="empty">Pin rỗng</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="battery-soh" className="text-right">
+                        SoH (%)
+                      </Label>
+                      <Input
+                        id="battery-soh"
+                        type="number"
+                        value={newBattery.soh}
+                        onChange={(e) => setNewBattery({...newBattery, soh: e.target.value})}
+                        className="col-span-3"
+                        placeholder="100"
+                        min="0"
+                        max="100"
+                      />
+                    </div>
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="battery-location" className="text-right">
+                        Vị trí
+                      </Label>
+                      <Input
+                        id="battery-location"
+                        value={newBattery.location}
+                        onChange={(e) => setNewBattery({...newBattery, location: e.target.value})}
+                        className="col-span-3"
+                        placeholder="Slot C1"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button onClick={handleAddBattery}>Thêm pin</Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
             </div>
           </CardContent>
         </Card>
@@ -202,7 +341,7 @@ const BatteryInventory = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-2">
-                        <Button variant="outline" size="sm">
+                        <Button variant="outline" size="sm" onClick={() => handleEditBattery(battery)}>
                           <Edit className="h-3 w-3" />
                         </Button>
                         <Button variant="outline" size="sm">
@@ -217,6 +356,88 @@ const BatteryInventory = () => {
           </CardContent>
         </Card>
       </div>
+
+      {/* Edit Battery Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Cập nhật thông tin pin</DialogTitle>
+            <DialogDescription>
+              Chỉnh sửa thông tin chi tiết của pin {editBattery.id}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-battery-id" className="text-right">
+                Mã pin
+              </Label>
+              <Input
+                id="edit-battery-id"
+                value={editBattery.id}
+                className="col-span-3"
+                disabled
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-battery-type" className="text-right">
+                Loại pin
+              </Label>
+              <Select value={editBattery.type} onValueChange={(value) => setEditBattery({...editBattery, type: value})}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Lithium-ion">Lithium-ion</SelectItem>
+                  <SelectItem value="Pin LFP">Pin LFP</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-battery-status" className="text-right">
+                Trạng thái
+              </Label>
+              <Select value={editBattery.status} onValueChange={(value) => setEditBattery({...editBattery, status: value})}>
+                <SelectTrigger className="col-span-3">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="full">Pin đầy</SelectItem>
+                  <SelectItem value="charging">Đang sạc</SelectItem>
+                  <SelectItem value="empty">Pin rỗng</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-battery-soh" className="text-right">
+                SoH (%)
+              </Label>
+              <Input
+                id="edit-battery-soh"
+                type="number"
+                value={editBattery.soh}
+                onChange={(e) => setEditBattery({...editBattery, soh: e.target.value})}
+                className="col-span-3"
+                min="0"
+                max="100"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-battery-location" className="text-right">
+                Vị trí
+              </Label>
+              <Input
+                id="edit-battery-location"
+                value={editBattery.location}
+                onChange={(e) => setEditBattery({...editBattery, location: e.target.value})}
+                className="col-span-3"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button onClick={handleUpdateBattery}>Cập nhật</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
