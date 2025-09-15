@@ -247,13 +247,6 @@ const BatteryDispatch = () => {
                 </div>
               </div>
             </div>
-            
-            <div className="flex justify-center mt-6">
-              <Button variant="outline">
-                <Battery className="h-4 w-4 mr-2" />
-                Cập nhật gợi ý AI
-              </Button>
-            </div>
           </CardContent>
         </Card>
 
