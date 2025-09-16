@@ -61,7 +61,7 @@ const Landing = () => {
               Hệ thống
             </span>
             <br />
-            <span className="bg-gradient-to-r from-electric-blue-light to-white bg-clip-text text-transparent animate-pulse">
+            <span className="bg-gradient-to-r from-electric-blue-light to-white bg-clip-text text-transparent animate-pulse mt-6 block">
               Đổi Pin EV
             </span>
             <br />
