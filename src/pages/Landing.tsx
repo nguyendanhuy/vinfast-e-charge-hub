@@ -4,18 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Battery, Zap, Users, BarChart3, LogIn, UserPlus, Star, ArrowRight, CheckCircle, Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import heroImage from "@/assets/ev-station-hero.jpg";
-
 const Landing = () => {
-  return (
-    <div className="min-h-screen relative overflow-hidden">
+  return <div className="min-h-screen relative overflow-hidden">
       {/* Hero Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-primary opacity-90 z-10"></div>
-        <img 
-          src={heroImage} 
-          alt="EV Charging Station" 
-          className="w-full h-full object-cover"
-        />
+        <img src={heroImage} alt="EV Charging Station" className="w-full h-full object-cover" />
         {/* Animated background elements */}
         <div className="absolute top-20 left-10 w-2 h-2 bg-white/30 rounded-full animate-pulse"></div>
         <div className="absolute top-40 right-20 w-3 h-3 bg-white/20 rounded-full animate-pulse delay-1000"></div>
@@ -31,7 +25,7 @@ const Landing = () => {
               <Battery className="h-8 w-8 text-white" />
             </div>
             <div>
-              <span className="text-white text-2xl font-bold block">EV Battery Swap</span>
+              <span className="text-white text-2xl block font-bold text-justify">EV Battery Swap</span>
               <span className="text-white/70 text-sm">VINFAST Technology</span>
             </div>
           </div>
@@ -287,8 +281,6 @@ const Landing = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default Landing;
