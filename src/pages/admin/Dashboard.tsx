@@ -114,9 +114,11 @@ const AdminDashboard = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Button className="w-full" variant="secondary">
-                Assign nhân viên
-              </Button>
+              <Link to="/admin/staff-management">
+                <Button className="w-full" variant="secondary">
+                  Quản lý nhân viên
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </div>

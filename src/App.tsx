@@ -29,6 +29,7 @@ import BatteryInspection from "./pages/staff/BatteryInspection";
 import AdminDashboard from "./pages/admin/Dashboard";
 import Reports from "./pages/admin/Reports";
 import BatteryDispatch from "./pages/admin/BatteryDispatch";
+import StaffManagement from "./pages/admin/StaffManagement";
 
 const queryClient = new QueryClient();
 
@@ -64,6 +65,7 @@ const App = () => (
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/reports" element={<Reports />} />
           <Route path="/admin/battery-dispatch" element={<BatteryDispatch />} />
+          <Route path="/admin/staff-management" element={<StaffManagement />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
