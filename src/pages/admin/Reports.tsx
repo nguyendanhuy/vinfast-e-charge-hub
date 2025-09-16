@@ -6,7 +6,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { BarChart3, ArrowLeft, Search, CalendarIcon, TrendingUp, DollarSign, Battery, Users } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { BarChart3, ArrowLeft, Search, CalendarIcon, TrendingUp, DollarSign, Battery, Users, Clock, MapPin, CreditCard, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
@@ -15,6 +17,8 @@ const Reports = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStation, setSelectedStation] = useState("");
   const [dateRange, setDateRange] = useState({ from: new Date(), to: new Date() });
+  const [selectedStationDetails, setSelectedStationDetails] = useState(null);
+  const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
 
   const stations = [
     {
@@ -48,6 +52,67 @@ const Reports = () => {
       popularityScore: 8.1
     }
   ];
+
+  const getWeeklyTransactions = (stationId) => {
+    const transactions = [
+      {
+        id: "TXN001",
+        customerName: "Nguyễn Văn A",
+        vehicleType: "VinFast VF8",
+        batteryType: "Lithium-ion",
+        swapTime: "15/01/2024 14:30",
+        duration: "3 phút 45 giây",
+        amount: "120,000",
+        status: "Hoàn thành",
+        paymentMethod: "Thẻ tín dụng"
+      },
+      {
+        id: "TXN002",
+        customerName: "Trần Thị B",
+        vehicleType: "VinFast VF9",
+        batteryType: "LFP",
+        swapTime: "15/01/2024 16:15",
+        duration: "4 phút 12 giây",
+        amount: "110,000",
+        status: "Hoàn thành",
+        paymentMethod: "Ví điện tử"
+      },
+      {
+        id: "TXN003",
+        customerName: "Lê Văn C",
+        vehicleType: "VinFast VF6",
+        batteryType: "Lithium-ion",
+        swapTime: "16/01/2024 09:20",
+        duration: "3 phút 28 giây",
+        amount: "115,000",
+        status: "Hoàn thành",
+        paymentMethod: "Chuyển khoản"
+      },
+      {
+        id: "TXN004",
+        customerName: "Phạm Thị D",
+        vehicleType: "VinFast VF8",
+        batteryType: "Lithium-ion",
+        swapTime: "16/01/2024 11:45",
+        duration: "2 phút 56 giây",
+        amount: "120,000",
+        status: "Hoàn thành",
+        paymentMethod: "Thẻ tín dụng"
+      },
+      {
+        id: "TXN005",
+        customerName: "Hoàng Văn E",
+        vehicleType: "VinFast VF9",
+        batteryType: "LFP",
+        swapTime: "17/01/2024 08:30",
+        duration: "4 phút 05 giây",
+        amount: "110,000",
+        status: "Đang xử lý",
+        paymentMethod: "Ví điện tử"
+      }
+    ];
+    return transactions;
+  };
 
   const kpiData = {
     totalRevenue: "2,850,000",
@@ -204,9 +269,116 @@ const Reports = () => {
                   <div className="mt-4 pt-4 border-t">
                     <div className="flex justify-between items-center">
                       <span className="text-sm text-muted-foreground">Lịch sử giao dịch tuần này</span>
-                      <Button variant="outline" size="sm">
-                        Xem chi tiết
-                      </Button>
+                      <Dialog open={detailsDialogOpen} onOpenChange={setDetailsDialogOpen}>
+                        <DialogTrigger asChild>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setSelectedStationDetails(station)}
+                          >
+                            <Eye className="h-4 w-4 mr-2" />
+                            Xem chi tiết
+                          </Button>
+                        </DialogTrigger>
+                        <DialogContent className="max-w-6xl max-h-[90vh] overflow-y-auto">
+                          <DialogHeader>
+                            <DialogTitle className="flex items-center">
+                              <MapPin className="h-5 w-5 mr-2 text-electric-blue" />
+                              Chi tiết giao dịch - {selectedStationDetails?.name}
+                            </DialogTitle>
+                            <DialogDescription>
+                              Lịch sử giao dịch chi tiết tuần này tại {selectedStationDetails?.address}
+                            </DialogDescription>
+                          </DialogHeader>
+                          
+                          {selectedStationDetails && (
+                            <div className="space-y-6">
+                              {/* Summary Stats */}
+                              <div className="grid md:grid-cols-4 gap-4">
+                                <Card>
+                                  <CardContent className="p-4 text-center">
+                                    <CreditCard className="h-8 w-8 text-success mx-auto mb-2" />
+                                    <h3 className="text-lg font-bold">{selectedStationDetails.revenue}</h3>
+                                    <p className="text-sm text-muted-foreground">Doanh thu (VNĐ)</p>
+                                  </CardContent>
+                                </Card>
+                                <Card>
+                                  <CardContent className="p-4 text-center">
+                                    <TrendingUp className="h-8 w-8 text-electric-blue mx-auto mb-2" />
+                                    <h3 className="text-lg font-bold">{selectedStationDetails.transactions}</h3>
+                                    <p className="text-sm text-muted-foreground">Giao dịch</p>
+                                  </CardContent>
+                                </Card>
+                                <Card>
+                                  <CardContent className="p-4 text-center">
+                                    <Clock className="h-8 w-8 text-warning mx-auto mb-2" />
+                                    <h3 className="text-lg font-bold">3.5 phút</h3>
+                                    <p className="text-sm text-muted-foreground">TB thời gian</p>
+                                  </CardContent>
+                                </Card>
+                                <Card>
+                                  <CardContent className="p-4 text-center">
+                                    <Users className="h-8 w-8 text-charging mx-auto mb-2" />
+                                    <h3 className="text-lg font-bold">{selectedStationDetails.efficiency}</h3>
+                                    <p className="text-sm text-muted-foreground">Hiệu suất</p>
+                                  </CardContent>
+                                </Card>
+                              </div>
+
+                              {/* Transaction Table */}
+                              <Card>
+                                <CardHeader>
+                                  <CardTitle>Danh sách giao dịch</CardTitle>
+                                  <CardDescription>
+                                    Chi tiết từng giao dịch đổi pin trong tuần
+                                  </CardDescription>
+                                </CardHeader>
+                                <CardContent>
+                                  <Table>
+                                    <TableHeader>
+                                      <TableRow>
+                                        <TableHead>Mã GD</TableHead>
+                                        <TableHead>Khách hàng</TableHead>
+                                        <TableHead>Xe & Pin</TableHead>
+                                        <TableHead>Thời gian</TableHead>
+                                        <TableHead>Thời lượng</TableHead>
+                                        <TableHead>Số tiền</TableHead>
+                                        <TableHead>PT thanh toán</TableHead>
+                                        <TableHead>Trạng thái</TableHead>
+                                      </TableRow>
+                                    </TableHeader>
+                                    <TableBody>
+                                      {getWeeklyTransactions(selectedStationDetails.id).map((transaction) => (
+                                        <TableRow key={transaction.id}>
+                                          <TableCell className="font-medium">{transaction.id}</TableCell>
+                                          <TableCell>{transaction.customerName}</TableCell>
+                                          <TableCell>
+                                            <div>
+                                              <div className="font-medium">{transaction.vehicleType}</div>
+                                              <div className="text-sm text-muted-foreground">{transaction.batteryType}</div>
+                                            </div>
+                                          </TableCell>
+                                          <TableCell>{transaction.swapTime}</TableCell>
+                                          <TableCell>{transaction.duration}</TableCell>
+                                          <TableCell className="font-medium text-success">
+                                            {parseInt(transaction.amount).toLocaleString()} VNĐ
+                                          </TableCell>
+                                          <TableCell>{transaction.paymentMethod}</TableCell>
+                                          <TableCell>
+                                            <Badge variant={transaction.status === "Hoàn thành" ? "default" : "secondary"}>
+                                              {transaction.status}
+                                            </Badge>
+                                          </TableCell>
+                                        </TableRow>
+                                      ))}
+                                    </TableBody>
+                                  </Table>
+                                </CardContent>
+                              </Card>
+                            </div>
+                          )}
+                        </DialogContent>
+                      </Dialog>
                     </div>
                   </div>
                 </div>
