@@ -43,11 +43,10 @@ const BookingHistory = () => {
       bookingTime: "16/01/2024 09:15",
       paymentTime: "16/01/2024 09:20",
       stationLocation: "Trạm Bình Thạnh - 789 Xô Viết Nghệ Tĩnh",
-      bookingMethod: "Đặt cọc",
-      status: "Đã cọc",
-      amount: "30,000",
-      remainingAmount: "90,000",
-      canCancel: true
+      bookingMethod: "Thanh toán đầy đủ",
+      status: "Đã thanh toán",
+      amount: "120,000",
+      canCancel: false
     },
     {
       id: "BK003",

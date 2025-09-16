@@ -209,35 +209,6 @@ const BatteryInspection = () => {
                           )}
                         </DialogContent>
                       </Dialog>
-                      
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button 
-                            size="sm"
-                            onClick={() => {
-                              setSelectedBattery(battery);
-                              setInspectionType("continue");
-                            }}
-                          >
-                            <CheckCircle className="h-4 w-4 mr-2" />
-                            Cập nhật SoH
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent>
-                          <DialogHeader>
-                            <DialogTitle>Cập nhật thông số pin</DialogTitle>
-                            <DialogDescription>
-                              Nhập thông số SoH mới để tiếp tục sử dụng
-                            </DialogDescription>
-                          </DialogHeader>
-                          {selectedBattery && (
-                            <MaintenanceForm 
-                              battery={selectedBattery} 
-                              onClose={() => setSelectedBattery(null)}
-                            />
-                          )}
-                        </DialogContent>
-                      </Dialog>
                     </div>
                   </div>
                 </div>
