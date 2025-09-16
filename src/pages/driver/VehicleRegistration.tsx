@@ -127,8 +127,8 @@ const VehicleRegistration = () => {
                     <p className="text-sm text-muted-foreground">VIN: VF1A12345678901234</p>
                     <p className="text-sm text-muted-foreground">Pin: Lithium-ion</p>
                   </div>
-                  <Button variant="outline" size="sm">
-                    Chỉnh sửa
+                  <Button variant="destructive" size="sm">
+                    Xóa xe
                   </Button>
                 </div>
               </div>

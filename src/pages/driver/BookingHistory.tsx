@@ -200,24 +200,24 @@ const BookingHistory = () => {
                               onClick={() => setSelectedBooking(booking)}
                             >
                               <X className="h-4 w-4 mr-1" />
-                              Hủy cọc
+                              Hủy lịch
                             </Button>
                           </DialogTrigger>
                           <DialogContent className="sm:max-w-md">
                             <DialogHeader>
-                              <DialogTitle>Xác nhận hủy cọc</DialogTitle>
+                              <DialogTitle>Xác nhận hủy lịch</DialogTitle>
                               <DialogDescription>
-                                Bạn có chắc chắn muốn hủy cọc cho đặt chỗ #{selectedBooking?.id}?
+                                Bạn có chắc chắn muốn hủy lịch cho đặt chỗ #{selectedBooking?.id}?
                               </DialogDescription>
                             </DialogHeader>
                             
                             <div className="text-center p-6">
                               <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-warning" />
                               <p className="text-sm mb-2">
-                                <strong>Số tiền cọc:</strong> {selectedBooking?.amount} VNĐ
+                                <strong>Số tiền:</strong> {selectedBooking?.amount} VNĐ
                               </p>
                               <p className="text-sm text-muted-foreground mb-4">
-                                Tiền cọc sẽ được hoàn lại trong vòng 24 giờ
+                                Tiền sẽ được hoàn lại trong vòng 24 giờ
                               </p>
                             </div>
 
@@ -234,14 +234,64 @@ const BookingHistory = () => {
                                 onClick={handleCancelDeposit}
                                 className="flex-1"
                               >
-                                Xác nhận hủy cọc
+                                Xác nhận hủy lịch
                               </Button>
                             </DialogFooter>
                           </DialogContent>
                         </Dialog>
                       )}
                       
-                      {!booking.canCancel && booking.status !== "Đã cọc" && (
+                      {booking.status === "Đã thanh toán" && (
+                        <Dialog open={cancelDepositDialogOpen} onOpenChange={setCancelDepositDialogOpen}>
+                          <DialogTrigger asChild>
+                            <Button 
+                              variant="destructive" 
+                              size="sm"
+                              onClick={() => setSelectedBooking(booking)}
+                            >
+                              <X className="h-4 w-4 mr-1" />
+                              Hủy lịch
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="sm:max-w-md">
+                            <DialogHeader>
+                              <DialogTitle>Xác nhận hủy lịch</DialogTitle>
+                              <DialogDescription>
+                                Bạn có chắc chắn muốn hủy lịch cho đặt chỗ #{selectedBooking?.id}?
+                              </DialogDescription>
+                            </DialogHeader>
+                            
+                            <div className="text-center p-6">
+                              <AlertTriangle className="h-16 w-16 mx-auto mb-4 text-warning" />
+                              <p className="text-sm mb-2">
+                                <strong>Số tiền:</strong> {selectedBooking?.amount} VNĐ
+                              </p>
+                              <p className="text-sm text-muted-foreground mb-4">
+                                Tiền sẽ được hoàn lại trong vòng 24 giờ
+                              </p>
+                            </div>
+
+                            <DialogFooter className="flex space-x-2">
+                              <Button 
+                                variant="outline" 
+                                onClick={() => setCancelDepositDialogOpen(false)}
+                                className="flex-1"
+                              >
+                                Hủy
+                              </Button>
+                              <Button 
+                                variant="destructive" 
+                                onClick={handleCancelDeposit}
+                                className="flex-1"
+                              >
+                                Xác nhận hủy lịch
+                              </Button>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
+                      )}
+                      
+                      {!booking.canCancel && booking.status !== "Đã cọc" && booking.status !== "Đã thanh toán" && (
                         <Dialog>
                           <DialogTrigger asChild>
                             <Button 
@@ -319,9 +369,6 @@ const BookingHistory = () => {
                         Thanh toán
                       </div>
                       <p className="font-medium text-success">{booking.amount.toLocaleString()} VNĐ</p>
-                      {booking.remainingAmount && (
-                        <p className="text-sm text-warning">Còn lại: {booking.remainingAmount.toLocaleString()} VNĐ</p>
-                      )}
                     </div>
                   </div>
                 </div>

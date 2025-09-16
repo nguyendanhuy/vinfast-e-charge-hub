@@ -17,30 +17,30 @@ const BatteryInspection = () => {
 
   const emptyBatteries = [
     {
-      id: "BAT003",
+      id: "BAT005",
       type: "Lithium-ion",
       lastUsed: "14/12/2024 16:30",
       location: "Slot A3",
-      soh: "88%",
-      cycles: 245,
+      soh: "78%",
+      cycles: 345,
       temperature: "23°C"
     },
     {
-      id: "BAT007",
+      id: "BAT009",
       type: "Pin LFP", 
       lastUsed: "14/12/2024 15:20",
       location: "Slot B3",
-      soh: "91%",
-      cycles: 189,
+      soh: "75%",
+      cycles: 389,
       temperature: "24°C"
     },
     {
-      id: "BAT012",
+      id: "BAT014",
       type: "Lithium-ion",
       lastUsed: "14/12/2024 14:10",
       location: "Slot C2",
-      soh: "86%",
-      cycles: 267,
+      soh: "72%",
+      cycles: 467,
       temperature: "25°C"
     }
   ];
@@ -220,7 +220,7 @@ const BatteryInspection = () => {
                             }}
                           >
                             <CheckCircle className="h-4 w-4 mr-2" />
-                            Tiếp tục sử dụng
+                            Cập nhật SoH
                           </Button>
                         </DialogTrigger>
                         <DialogContent>
