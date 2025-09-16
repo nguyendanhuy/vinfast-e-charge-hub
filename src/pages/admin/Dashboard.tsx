@@ -66,7 +66,7 @@ const AdminDashboard = () => {
 
 
         {/* Quick Actions */}
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-3 gap-6">
           <Card className="hover-glow">
             <CardHeader>
               <CardTitle className="flex items-center text-electric-blue">
@@ -102,6 +102,70 @@ const AdminDashboard = () => {
               </Link>
             </CardContent>
           </Card>
+
+          <Card className="hover-glow">
+            <CardHeader>
+              <CardTitle className="flex items-center text-electric-blue">
+                <Users className="h-6 w-6 mr-2" />
+                Quản lý nhân viên
+              </CardTitle>
+              <CardDescription>
+                Phân công nhân viên cho các trạm đổi pin
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button className="w-full" variant="secondary">
+                Assign nhân viên
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Station Management Section */}
+        <div className="mt-8">
+          <h3 className="text-2xl font-bold text-foreground mb-6">Quản lý trạm và nhân viên</h3>
+          <div className="grid gap-6">
+            {[
+              { id: 1, name: "Trạm Bình Thạnh", address: "789 Xô Viết Nghệ Tĩnh", staff: "Nguyễn Văn A", status: "Hoạt động" },
+              { id: 2, name: "Trạm Quận 1", address: "123 Lê Lợi", staff: "Chưa phân công", status: "Hoạt động" },
+              { id: 3, name: "Trạm Thủ Đức", address: "456 Võ Văn Ngân", staff: "Trần Thị B", status: "Bảo trì" },
+              { id: 4, name: "Trạm Tân Bình", address: "321 Cộng Hòa", staff: "Chưa phân công", status: "Hoạt động" }
+            ].map((station) => (
+              <Card key={station.id} className="hover-scale">
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center space-x-4">
+                        <MapPin className="h-6 w-6 text-electric-blue" />
+                        <div>
+                          <h4 className="font-semibold text-lg">{station.name}</h4>
+                          <p className="text-muted-foreground text-sm">{station.address}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-6">
+                      <div className="text-center">
+                        <p className="text-sm text-muted-foreground">Nhân viên</p>
+                        <p className={`font-medium ${station.staff === "Chưa phân công" ? "text-warning" : "text-foreground"}`}>
+                          {station.staff}
+                        </p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-sm text-muted-foreground">Trạng thái</p>
+                        <p className={`font-medium ${station.status === "Hoạt động" ? "text-success" : "text-warning"}`}>
+                          {station.status}
+                        </p>
+                      </div>
+                      <Button size="sm" variant="outline">
+                        <Users className="h-4 w-4 mr-2" />
+                        {station.staff === "Chưa phân công" ? "Assign Staff" : "Đổi Staff"}
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>

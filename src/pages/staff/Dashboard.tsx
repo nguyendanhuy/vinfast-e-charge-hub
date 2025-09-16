@@ -23,9 +23,39 @@ const StaffDashboard = () => {
       </header>
 
       <div className="container mx-auto p-6">
-        <div className="mb-8 animate-fade-in">
-          <h2 className="text-3xl font-bold text-foreground mb-2">Chào mừng nhân viên!</h2>
-          <p className="text-muted-foreground">Quản lý trạm đổi pin và dịch vụ khách hàng</p>
+        <div className="mb-8 animate-fade-in flex justify-between items-start">
+          <div>
+            <h2 className="text-3xl font-bold text-foreground mb-2">Chào mừng nhân viên!</h2>
+            <p className="text-muted-foreground">Quản lý trạm đổi pin và dịch vụ khách hàng</p>
+          </div>
+          <Card className="w-80">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center text-electric-blue">
+                <Battery className="h-5 w-5 mr-2" />
+                Trạm đang quản lý
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Tên trạm:</span>
+                  <span className="text-sm font-medium">Trạm Bình Thạnh</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Địa chỉ:</span>
+                  <span className="text-sm font-medium">789 Xô Viết Nghệ Tĩnh</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Trạng thái:</span>
+                  <span className="text-sm font-medium text-success">Đang hoạt động</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-muted-foreground">Pin khả dụng:</span>
+                  <span className="text-sm font-medium">45/60</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
 
         {/* Quick Stats */}
