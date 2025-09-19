@@ -27,6 +27,7 @@ const BatteryDispatch = () => {
   const [selectedFromStation, setSelectedFromStation] = useState("");
   const [selectedToStation, setSelectedToStation] = useState("");
   const [batteryCount, setBatteryCount] = useState("");
+  const [selectedBatteryType, setSelectedBatteryType] = useState("");
   const [dispatchNote, setDispatchNote] = useState("");
   const [isNewDispatchOpen, setIsNewDispatchOpen] = useState(false);
   const { toast } = useToast();
@@ -101,8 +102,16 @@ const BatteryDispatch = () => {
     }
   };
 
+  const batteryTypes = [
+    { value: "full", label: "Pin đầy" },
+    { value: "empty", label: "Pin cạn" },
+    { value: "new", label: "Pin mới" },
+    { value: "damaged", label: "Pin hỏng" },
+    { value: "maintenance", label: "Pin cần kiểm tra" }
+  ];
+
   const handleCreateDispatch = () => {
-    if (!selectedFromStation || !selectedToStation || !batteryCount) {
+    if (!selectedFromStation || !selectedToStation || !batteryCount || !selectedBatteryType) {
       toast({
         title: "Thiếu thông tin",
         description: "Vui lòng điền đầy đủ thông tin điều phối",
@@ -120,6 +129,7 @@ const BatteryDispatch = () => {
     setSelectedFromStation("");
     setSelectedToStation("");
     setBatteryCount("");
+    setSelectedBatteryType("");
     setDispatchNote("");
     setIsNewDispatchOpen(false);
   };
@@ -302,6 +312,21 @@ const BatteryDispatch = () => {
                               disabled={station.id === selectedFromStation}
                             >
                               {station.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="batteryType">Loại pin</Label>
+                      <Select onValueChange={setSelectedBatteryType}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Chọn loại pin" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {batteryTypes.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              {type.label}
                             </SelectItem>
                           ))}
                         </SelectContent>
