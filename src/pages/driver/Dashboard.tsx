@@ -1,9 +1,14 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Car, MapPin, Calendar, CreditCard, Battery, Home } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Car, MapPin, Calendar, CreditCard, Battery, Home, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import AccountSettings from "@/components/AccountSettings";
 
 const DriverDashboard = () => {
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -13,12 +18,28 @@ const DriverDashboard = () => {
             <Battery className="h-8 w-8" />
             <h1 className="text-2xl font-bold">Dashboard Tài xế</h1>
           </div>
-          <Link to="/">
-            <Button variant="ghost" className="text-white hover:bg-white/20">
-              <Home className="h-4 w-4 mr-2" />
-              Trang chủ
-            </Button>
-          </Link>
+          <div className="flex items-center space-x-2">
+            <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+              <DialogTrigger asChild>
+                <Button variant="ghost" className="text-white hover:bg-white/20">
+                  <Settings className="h-4 w-4 mr-2" />
+                  Cài đặt
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                <DialogHeader>
+                  <DialogTitle>Cài đặt tài khoản</DialogTitle>
+                </DialogHeader>
+                <AccountSettings userRole="driver" />
+              </DialogContent>
+            </Dialog>
+            <Link to="/">
+              <Button variant="ghost" className="text-white hover:bg-white/20">
+                <Home className="h-4 w-4 mr-2" />
+                Trang chủ
+              </Button>
+            </Link>
+          </div>
         </div>
       </header>
 
