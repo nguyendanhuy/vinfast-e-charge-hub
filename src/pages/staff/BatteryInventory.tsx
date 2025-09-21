@@ -87,7 +87,7 @@ const BatteryInventory = () => {
       case "charging":
         return <Badge className="bg-charging text-white">Đang sạc</Badge>;
       case "empty":
-        return <Badge variant="secondary">Pin rỗng</Badge>;
+        return <Badge variant="secondary">Pin đang bảo trì</Badge>;
       default:
         return <Badge variant="outline">Không xác định</Badge>;
     }
@@ -166,7 +166,7 @@ const BatteryInventory = () => {
             <CardContent className="p-6 text-center">
               <Battery className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-2xl font-bold">{statusCounts.empty}</h3>
-              <p className="text-muted-foreground">Pin rỗng</p>
+              <p className="text-muted-foreground">Pin đang bảo trì</p>
             </CardContent>
           </Card>
           <Card className="hover-scale">
@@ -200,7 +200,7 @@ const BatteryInventory = () => {
                   <SelectItem value="all">Tất cả</SelectItem>
                   <SelectItem value="full">Pin đầy</SelectItem>
                   <SelectItem value="charging">Đang sạc</SelectItem>
-                  <SelectItem value="empty">Pin rỗng</SelectItem>
+                  <SelectItem value="empty">Pin đang bảo trì</SelectItem>
                 </SelectContent>
               </Select>
               <Button>
@@ -259,7 +259,7 @@ const BatteryInventory = () => {
                         <SelectContent>
                           <SelectItem value="full">Pin đầy</SelectItem>
                           <SelectItem value="charging">Đang sạc</SelectItem>
-                          <SelectItem value="empty">Pin rỗng</SelectItem>
+                          <SelectItem value="empty">Pin đang bảo trì</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -403,7 +403,7 @@ const BatteryInventory = () => {
                 <SelectContent>
                   <SelectItem value="full">Pin đầy</SelectItem>
                   <SelectItem value="charging">Đang sạc</SelectItem>
-                  <SelectItem value="empty">Pin rỗng</SelectItem>
+                  <SelectItem value="empty">Pin đang bảo trì</SelectItem>
                 </SelectContent>
               </Select>
             </div>
