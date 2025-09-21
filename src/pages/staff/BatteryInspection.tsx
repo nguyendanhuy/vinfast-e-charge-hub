@@ -5,8 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
-import { Search, ArrowLeft, AlertTriangle, CheckCircle, Wrench } from "lucide-react";
+import { Search, ArrowLeft, AlertTriangle, CheckCircle, Wrench, Clock, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 
@@ -22,8 +23,7 @@ const BatteryInspection = () => {
       lastUsed: "14/12/2024 16:30",
       location: "Slot A3",
       soh: "78%",
-      cycles: 345,
-      temperature: "23°C"
+      cycles: 345
     },
     {
       id: "BAT009",
@@ -31,8 +31,7 @@ const BatteryInspection = () => {
       lastUsed: "14/12/2024 15:20",
       location: "Slot B3",
       soh: "75%",
-      cycles: 389,
-      temperature: "24°C"
+      cycles: 389
     },
     {
       id: "BAT014",
@@ -40,27 +39,60 @@ const BatteryInspection = () => {
       lastUsed: "14/12/2024 14:10",
       location: "Slot C2",
       soh: "72%",
-      cycles: 467,
-      temperature: "25°C"
+      cycles: 467
     }
   ];
 
-  const MaintenanceForm = ({ battery, onClose }) => {
-    const [damageDescription, setDamageDescription] = useState("");
-    const [sohValue, setSohValue] = useState("");
+  const inspectionHistory = [
+    {
+      id: "BAT001",
+      type: "Lithium-ion",
+      inspectionDate: "14/12/2024 10:30",
+      inspector: "Nguyễn Văn A",
+      physicalCondition: "Tốt",
+      notes: "Pin trong tình trạng bình thường",
+      status: "Đạt chuẩn"
+    },
+    {
+      id: "BAT003",
+      type: "Pin LFP",
+      inspectionDate: "14/12/2024 09:15",
+      inspector: "Trần Thị B",
+      physicalCondition: "Có dấu hiệu ăn mòn nhẹ",
+      notes: "Cần theo dõi thêm",
+      status: "Bảo trì"
+    },
+    {
+      id: "BAT007",
+      type: "Lithium-ion",
+      inspectionDate: "13/12/2024 16:45",
+      inspector: "Nguyễn Văn A",
+      physicalCondition: "Tốt",
+      notes: "Pin hoạt động ổn định",
+      status: "Đạt chuẩn"
+    }
+  ];
+
+  const staffList = ["Nguyễn Văn A", "Trần Thị B"];
+
+  const InspectionForm = ({ battery, onClose }) => {
+    const [physicalCondition, setPhysicalCondition] = useState("");
+    const [notes, setNotes] = useState("");
+    const [inspector, setInspector] = useState("");
 
     const handleSubmit = () => {
-      if (inspectionType === "maintenance") {
-        toast({
-          title: "Gửi pin bảo trì thành công",
-          description: `Pin ${battery.id} đã được gửi đi bảo trì. Hệ thống sẽ theo dõi tiến độ.`,
-        });
-      } else if (inspectionType === "continue") {
-        toast({
-          title: "Cập nhật SoH thành công", 
-          description: `Pin ${battery.id} đã được cập nhật SoH mới: ${sohValue}%`,
-        });
-      }
+      toast({
+        title: "Kiểm tra pin thành công",
+        description: `Pin ${battery.id} đã được kiểm tra bởi ${inspector}`,
+      });
+      onClose();
+    };
+
+    const handleSendMaintenance = () => {
+      toast({
+        title: "Gửi pin bảo trì thành công",
+        description: `Pin ${battery.id} đã được chuyển sang trạng thái bảo trì`,
+      });
       onClose();
     };
 
@@ -72,44 +104,66 @@ const BatteryInspection = () => {
             <span>Loại: {battery.type}</span>
             <span>SoH hiện tại: {battery.soh}</span>
             <span>Chu kỳ: {battery.cycles}</span>
-            <span>Nhiệt độ: {battery.temperature}</span>
+            <span>Vị trí: {battery.location}</span>
           </div>
         </div>
 
-        {inspectionType === "maintenance" && (
-          <div className="space-y-3">
-            <Label htmlFor="damage">Mô tả tình trạng hư hại</Label>
+        <div className="space-y-3">
+          <div>
+            <Label htmlFor="physical">Tình trạng vật lý</Label>
             <Textarea
-              id="damage"
-              placeholder="Nhập chi tiết tình trạng pin cần bảo trì..."
-              value={damageDescription}
-              onChange={(e) => setDamageDescription(e.target.value)}
+              id="physical"
+              placeholder="Mô tả tình trạng vật lý của pin..."
+              value={physicalCondition}
+              onChange={(e) => setPhysicalCondition(e.target.value)}
             />
           </div>
-        )}
 
-        {inspectionType === "continue" && (
-          <div className="space-y-3">
-            <Label htmlFor="soh">Cập nhật SoH của pin (%)</Label>
-            <Input
-              id="soh"
-              type="number"
-              placeholder="Nhập giá trị SoH..."
-              value={sohValue}
-              onChange={(e) => setSohValue(e.target.value)}
+          <div>
+            <Label htmlFor="notes">Ghi chú về pin</Label>
+            <Textarea
+              id="notes"
+              placeholder="Ghi chú thêm về pin..."
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
             />
           </div>
-        )}
+
+          <div>
+            <Label>Người thực hiện kiểm tra</Label>
+            <Select value={inspector} onValueChange={setInspector}>
+              <SelectTrigger>
+                <SelectValue placeholder="Chọn nhân viên kiểm tra" />
+              </SelectTrigger>
+              <SelectContent>
+                {staffList.map((staff) => (
+                  <SelectItem key={staff} value={staff}>
+                    {staff}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
         <div className="flex gap-3 pt-4">
           <Button 
             className="flex-1"
             onClick={handleSubmit}
+            disabled={!physicalCondition || !notes || !inspector}
           >
-            {inspectionType === "maintenance" ? "Gửi bảo trì" : "Cập nhật SoH"}
+            Hoàn thành kiểm tra
           </Button>
-          <Button variant="outline" className="flex-1" onClick={onClose}>
-            Hủy bỏ
+          <Button 
+            variant="destructive" 
+            className="flex-1"
+            onClick={handleSendMaintenance}
+            disabled={!inspector}
+          >
+            Gửi bảo trì
+          </Button>
+          <Button variant="outline" onClick={onClose}>
+            Hủy
           </Button>
         </div>
       </div>
@@ -136,9 +190,9 @@ const BatteryInspection = () => {
       <div className="container mx-auto p-6">
         <Card className="mb-6 animate-fade-in">
           <CardHeader>
-            <CardTitle>Pin rỗng cần kiểm tra</CardTitle>
+            <CardTitle>Pin cần kiểm tra</CardTitle>
             <CardDescription>
-              Danh sách pin đang ở trạng thái rỗng cần được kiểm tra tình trạng
+              Danh sách pin cần được kiểm tra tình trạng
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -166,15 +220,10 @@ const BatteryInspection = () => {
                         <span>Chu kỳ:</span>
                         <span>{battery.cycles}</span>
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span>Nhiệt độ:</span>
-                        <span>{battery.temperature}</span>
-                      </div>
                     </div>
                     
                     <div>
-                      <Badge variant="secondary">Pin rỗng</Badge>
-                      <p className="text-xs text-muted-foreground mt-1">
+                      <p className="text-xs text-muted-foreground">
                         Sử dụng cuối: {battery.lastUsed}
                       </p>
                     </div>
@@ -187,28 +236,78 @@ const BatteryInspection = () => {
                             size="sm"
                             onClick={() => {
                               setSelectedBattery(battery);
-                              setInspectionType("maintenance");
                             }}
                           >
-                            <Wrench className="h-4 w-4 mr-2" />
-                            Gửi bảo trì
+                            <Search className="h-4 w-4 mr-2" />
+                            Kiểm tra pin
                           </Button>
                         </DialogTrigger>
-                        <DialogContent>
+                        <DialogContent className="max-w-md">
                           <DialogHeader>
-                            <DialogTitle>Gửi pin đi bảo trì</DialogTitle>
+                            <DialogTitle>Kiểm tra pin</DialogTitle>
                             <DialogDescription>
-                              Ghi rõ tình trạng hư hại của pin
+                              Thực hiện kiểm tra tình trạng pin
                             </DialogDescription>
                           </DialogHeader>
                           {selectedBattery && (
-                            <MaintenanceForm 
+                            <InspectionForm 
                               battery={selectedBattery} 
                               onClose={() => setSelectedBattery(null)}
                             />
                           )}
                         </DialogContent>
                       </Dialog>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Inspection History */}
+        <Card className="mb-6 animate-slide-up">
+          <CardHeader>
+            <CardTitle>Lịch sử kiểm tra pin</CardTitle>
+            <CardDescription>
+              Danh sách pin đã được kiểm tra gần đây
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {inspectionHistory.map((record) => (
+                <div key={record.id} className="border rounded-lg p-4">
+                  <div className="grid lg:grid-cols-5 gap-4 items-center">
+                    <div>
+                      <h3 className="font-semibold text-electric-blue">{record.id}</h3>
+                      <p className="text-sm text-muted-foreground">{record.type}</p>
+                    </div>
+                    
+                    <div>
+                      <div className="flex items-center text-sm text-muted-foreground mb-1">
+                        <Clock className="h-4 w-4 mr-1" />
+                        {record.inspectionDate}
+                      </div>
+                      <div className="flex items-center text-sm">
+                        <User className="h-4 w-4 mr-1" />
+                        {record.inspector}
+                      </div>
+                    </div>
+                    
+                    <div>
+                      <p className="text-sm font-medium">Tình trạng vật lý:</p>
+                      <p className="text-sm text-muted-foreground">{record.physicalCondition}</p>
+                    </div>
+                    
+                    <div>
+                      <p className="text-sm font-medium">Ghi chú:</p>
+                      <p className="text-sm text-muted-foreground">{record.notes}</p>
+                    </div>
+                    
+                    <div>
+                      <Badge variant={record.status === "Đạt chuẩn" ? "default" : "destructive"}>
+                        {record.status}
+                      </Badge>
                     </div>
                   </div>
                 </div>
