@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 const BatteryInspection = () => {
   const { toast } = useToast();
   const [selectedBattery, setSelectedBattery] = useState(null);
-  const [inspectionType, setInspectionType] = useState("");
+  const [showFullHistory, setShowFullHistory] = useState(false);
 
   const emptyBatteries = [
     {
@@ -72,6 +72,75 @@ const BatteryInspection = () => {
       status: "Đạt chuẩn"
     }
   ];
+
+  const fullInspectionHistory = [
+    ...inspectionHistory,
+    {
+      id: "BAT010",
+      type: "Pin LFP",
+      inspectionDate: "13/12/2024 14:20",
+      inspector: "Trần Thị B",
+      physicalCondition: "Tốt",
+      notes: "Pin trong tình trạng tốt",
+      status: "Đạt chuẩn"
+    },
+    {
+      id: "BAT012",
+      type: "Lithium-ion",
+      inspectionDate: "13/12/2024 11:30",
+      inspector: "Nguyễn Văn A",
+      physicalCondition: "Có vết xước nhẹ",
+      notes: "Vết xước không ảnh hưởng đến hoạt động",
+      status: "Đạt chuẩn"
+    },
+    {
+      id: "BAT008",
+      type: "Pin LFP",
+      inspectionDate: "12/12/2024 15:45",
+      inspector: "Trần Thị B",
+      physicalCondition: "Hư hại nặng",
+      notes: "Pin bị phồng, cần thay thế",
+      status: "Bảo trì"
+    },
+    {
+      id: "BAT015",
+      type: "Lithium-ion",
+      inspectionDate: "12/12/2024 13:10",
+      inspector: "Nguyễn Văn A",
+      physicalCondition: "Tốt",
+      notes: "Pin hoạt động bình thường",
+      status: "Đạt chuẩn"
+    },
+    {
+      id: "BAT002",
+      type: "Pin LFP",
+      inspectionDate: "12/12/2024 09:30",
+      inspector: "Trần Thị B",
+      physicalCondition: "Tốt",
+      notes: "Pin trong tình trạng tốt",
+      status: "Đạt chuẩn"
+    },
+    {
+      id: "BAT006",
+      type: "Lithium-ion",
+      inspectionDate: "11/12/2024 16:20",
+      inspector: "Nguyễn Văn A",
+      physicalCondition: "Có dấu hiệu ăn mòn",
+      notes: "Cần theo dõi và bảo trì định kỳ",
+      status: "Bảo trì"
+    },
+    {
+      id: "BAT011",
+      type: "Pin LFP",
+      inspectionDate: "11/12/2024 14:15",
+      inspector: "Trần Thị B",
+      physicalCondition: "Tốt",
+      notes: "Pin hoạt động ổn định",
+      status: "Đạt chuẩn"
+    }
+  ];
+
+  const displayedHistory = showFullHistory ? fullInspectionHistory : inspectionHistory;
 
   const staffList = ["Nguyễn Văn A", "Trần Thị B"];
 
@@ -268,14 +337,24 @@ const BatteryInspection = () => {
         {/* Inspection History */}
         <Card className="mb-6 animate-slide-up">
           <CardHeader>
-            <CardTitle>Lịch sử kiểm tra pin</CardTitle>
-            <CardDescription>
-              Danh sách pin đã được kiểm tra gần đây
-            </CardDescription>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Lịch sử kiểm tra pin</CardTitle>
+                <CardDescription>
+                  {showFullHistory ? "Lịch sử tổng hợp tất cả pin đã kiểm tra" : "Danh sách pin đã được kiểm tra gần đây"}
+                </CardDescription>
+              </div>
+              <Button 
+                variant="outline" 
+                onClick={() => setShowFullHistory(!showFullHistory)}
+              >
+                {showFullHistory ? "Thu gọn" : "Xem lịch sử tổng hợp"}
+              </Button>
+            </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {inspectionHistory.map((record) => (
+              {displayedHistory.map((record) => (
                 <div key={record.id} className="border rounded-lg p-4">
                   <div className="grid lg:grid-cols-5 gap-4 items-center">
                     <div>
