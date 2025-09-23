@@ -50,7 +50,7 @@ const StaffManagement = () => {
 
   const handleAddStaff = () => {
     if (formData.name && formData.email && formData.phone) {
-      const newStaff: Staff = {
+      const newStaff = {
         id: Date.now(),
         name: formData.name,
         email: formData.email,
@@ -109,7 +109,7 @@ const StaffManagement = () => {
     setStaffList(updatedStaff);
   };
 
-  const openEditDialog = (staff: Staff) => {
+  const openEditDialog = (staff) => {
     setSelectedStaff(staff);
     setFormData({
       name: staff.name,
@@ -119,12 +119,12 @@ const StaffManagement = () => {
     setIsEditDialogOpen(true);
   };
 
-  const openDeleteDialog = (staff: Staff) => {
+  const openDeleteDialog = (staff) => {
     setSelectedStaff(staff);
     setIsDeleteDialogOpen(true);
   };
 
-  const openAssignDialog = (staff: Staff) => {
+  const openAssignDialog = (staff) => {
     setAssignData({
       staffId: staff.id,
       stationId: "",
