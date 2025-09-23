@@ -166,7 +166,7 @@ const Landing = () => {
             </Card>
 
             <Card className="group hover:scale-105 transition-all duration-300 border-0 shadow-lg overflow-hidden">
-              <div className="aspect-square bg-gradient-to-br from-success to-green-600 p-8 flex items-center justify-center">
+              <div className="aspect-square bg-gradient-to-br from-primary to-electric-blue-dark p-8 flex items-center justify-center">
                 <Shield className="h-16 w-16 text-white" />
               </div>
               <CardContent className="p-6 text-center">
