@@ -7,11 +7,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { useToast } from "@/hooks/use-toast";
 import { User, Phone, Lock, Eye, EyeOff } from "lucide-react";
 
-interface AccountSettingsProps {
-  userRole: "driver" | "staff" | "admin";
-}
-
-const AccountSettings = ({ userRole }: AccountSettingsProps) => {
+const AccountSettings = ({ userRole }) => {
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
