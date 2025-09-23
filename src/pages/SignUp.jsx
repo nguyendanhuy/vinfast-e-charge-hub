@@ -238,7 +238,7 @@ const SignUp = () => {
               <Checkbox
                 id="agreeTerms"
                 checked={formData.agreeTerms}
-                onCheckedChange={(checked) => handleInputChange("agreeTerms", checked as boolean)}
+                onCheckedChange={(checked) => handleInputChange("agreeTerms", checked)}
               />
               <Label htmlFor="agreeTerms" className="text-sm">
                 Tôi đồng ý với{" "}
