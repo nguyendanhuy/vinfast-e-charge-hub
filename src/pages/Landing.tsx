@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Battery, Zap, Users, BarChart3, LogIn, UserPlus, Star, ArrowRight, CheckCircle, Globe, Phone, Clock, MapPin, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import heroImage from "@/assets/ev-station-hero.jpg";
+import heroImage from "@/assets/electric-scooter-hero.jpg";
 const Landing = () => {
   console.log("Landing component rendering...");
   return (
@@ -79,7 +79,7 @@ const Landing = () => {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/signup">
-                <Button size="lg" className="bg-orange-500 text-white hover:bg-orange-600 text-lg px-8 py-4 rounded-full shadow-xl">
+                <Button size="lg" className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 rounded-full shadow-xl">
                   ĐẶT DỊCH VỤ
                 </Button>
               </Link>
@@ -111,7 +111,7 @@ const Landing = () => {
             </div>
             
             <div>
-              <div className="text-orange-500 text-lg font-medium mb-4 italic">Chào mừng bạn đến!</div>
+              <div className="text-primary text-lg font-medium mb-4 italic">Chào mừng bạn đến!</div>
               <h2 className="text-4xl font-bold text-gray-800 mb-6">
                 Dịch vụ đổi pin xe điện chuyên nghiệp của chúng tôi
               </h2>
@@ -125,7 +125,7 @@ const Landing = () => {
                 <Button className="bg-electric-blue text-white hover:bg-electric-blue-dark px-8 py-3 rounded-full">
                   KHU THƯƠNG MẠI
                 </Button>
-                <Button variant="outline" className="border-orange-500 text-orange-500 hover:bg-orange-500 hover:text-white px-8 py-3 rounded-full">
+                <Button variant="outline" className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full">
                   KHU DÂN CƯ
                 </Button>
               </div>
@@ -138,7 +138,7 @@ const Landing = () => {
       <section className="py-20 bg-gray-50" id="services">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <div className="text-orange-500 text-lg font-medium mb-4 italic">Những dịch vụ của chúng tôi</div>
+            <div className="text-primary text-lg font-medium mb-4 italic">Những dịch vụ của chúng tôi</div>
             <h2 className="text-4xl font-bold text-gray-800 mb-6">
               Hãy đưa chúng tôi pin của bạn.
             </h2>
@@ -156,7 +156,7 @@ const Landing = () => {
             </Card>
 
             <Card className="group hover:scale-105 transition-all duration-300 border-0 shadow-lg overflow-hidden">
-              <div className="aspect-square bg-gradient-to-br from-orange-500 to-orange-600 p-8 flex items-center justify-center">
+              <div className="aspect-square bg-gradient-to-br from-primary to-electric-blue-dark p-8 flex items-center justify-center">
                 <Zap className="h-16 w-16 text-white" />
               </div>
               <CardContent className="p-6 text-center">
@@ -331,7 +331,7 @@ const Landing = () => {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link to="/signup">
-                <Button size="lg" className="bg-orange-500 text-white hover:bg-orange-600 text-lg px-12 py-4 rounded-full shadow-xl">
+                <Button size="lg" className="bg-primary text-white hover:bg-primary/90 text-lg px-12 py-4 rounded-full shadow-xl">
                   <Star className="h-5 w-5 mr-2" />
                   Đăng ký miễn phí
                   <ArrowRight className="h-5 w-5 ml-2" />

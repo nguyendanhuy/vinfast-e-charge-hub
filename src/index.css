@@ -8,47 +8,46 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 215 25% 27%;
+    --background: 0 0% 100%;
+    --foreground: 212 100% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 212 100% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
+    --popover-foreground: 212 100% 20%;
 
-    --primary: 212 100% 50%;
+    --primary: 212 100% 45%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 214 88% 93%;
-    --secondary-foreground: 212 80% 25%;
+    --secondary: 212 30% 95%;
+    --secondary-foreground: 212 100% 20%;
 
-    --muted: 214 88% 93%;
-    --muted-foreground: 212 40% 60%;
+    --muted: 212 20% 96%;
+    --muted-foreground: 212 50% 40%;
 
-    --accent: 212 92% 95%;
-    --accent-foreground: 212 80% 25%;
+    --accent: 212 50% 90%;
+    --accent-foreground: 212 100% 20%;
 
     --destructive: 0 84% 60%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 212 100% 50%;
+    --border: 212 20% 90%;
+    --input: 212 20% 96%;
+    --ring: 212 100% 45%;
 
     /* EV Theme Colors */
-    --electric-blue: 212 100% 50%;
-    --electric-blue-dark: 212 100% 40%;
-    --electric-blue-light: 212 92% 95%;
-    --coral: 15 86% 62%;
-    --success: 142 76% 36%;
-    --warning: 48 96% 53%;
-    --charging: 212 85% 65%;
+    --electric-blue: 212 100% 45%;
+    --electric-blue-dark: 212 100% 35%;
+    --electric-blue-light: 212 50% 90%;
+    --success: 212 80% 40%;
+    --warning: 212 60% 50%;
+    --charging: 212 70% 55%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(212 100% 50%), hsl(212 85% 65%));
-    --gradient-secondary: linear-gradient(135deg, hsl(212 92% 95%), hsl(214 88% 93%));
-    --gradient-dark: linear-gradient(135deg, hsl(212 80% 25%), hsl(212 100% 35%));
+    --gradient-primary: linear-gradient(135deg, hsl(212 100% 45%), hsl(212 80% 60%));
+    --gradient-secondary: linear-gradient(135deg, hsl(212 50% 90%), hsl(212 20% 96%));
+    --gradient-dark: linear-gradient(135deg, hsl(212 100% 20%), hsl(212 100% 35%));
 
     --radius: 0.5rem;
 
