@@ -16,7 +16,7 @@ const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = (e) => {
     e.preventDefault();
     
     if (!email || !password || !userType) {

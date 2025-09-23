@@ -10,25 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Users, Plus, Edit, Trash2, UserPlus, Home, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 
-interface Staff {
-  id: number;
-  name: string;
-  email: string;
-  phone: string;
-  station: string | null;
-  status: "active" | "inactive";
-}
-
-interface Station {
-  id: number;
-  name: string;
-  address: string;
-  currentStaff: number;
-  maxStaff: number;
-}
-
 const StaffManagement = () => {
-  const [staffList, setStaffList] = useState<Staff[]>([
+  const [staffList, setStaffList] = useState([
     { id: 1, name: "Nguyễn Văn A", email: "nva@company.com", phone: "0901234567", station: "Trạm Bình Thạnh", status: "active" },
     { id: 2, name: "Trần Thị B", email: "ttb@company.com", phone: "0901234568", station: "Trạm Thủ Đức", status: "active" },
     { id: 3, name: "Lê Văn C", email: "lvc@company.com", phone: "0901234569", station: "Trạm Bình Thạnh", status: "active" },
@@ -36,7 +19,7 @@ const StaffManagement = () => {
     { id: 5, name: "Hoàng Văn E", email: "hve@company.com", phone: "0901234571", station: "Trạm Quận 1", status: "active" },
   ]);
 
-  const [stations] = useState<Station[]>([
+  const [stations] = useState([
     { id: 1, name: "Trạm Bình Thạnh", address: "789 Xô Viết Nghệ Tĩnh", currentStaff: 2, maxStaff: 2 },
     { id: 2, name: "Trạm Quận 1", address: "123 Lê Lợi", currentStaff: 1, maxStaff: 2 },
     { id: 3, name: "Trạm Thủ Đức", address: "456 Võ Văn Ngân", currentStaff: 1, maxStaff: 2 },
@@ -47,7 +30,7 @@ const StaffManagement = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isAssignDialogOpen, setIsAssignDialogOpen] = useState(false);
-  const [selectedStaff, setSelectedStaff] = useState<Staff | null>(null);
+  const [selectedStaff, setSelectedStaff] = useState(null);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -117,10 +100,10 @@ const StaffManagement = () => {
     }
   };
 
-  const handleUnassignStaff = (staffId: number) => {
+  const handleUnassignStaff = (staffId) => {
     const updatedStaff = staffList.map(staff =>
       staff.id === staffId
-        ? { ...staff, station: null, status: "inactive" as const }
+        ? { ...staff, station: null, status: "inactive" }
         : staff
     );
     setStaffList(updatedStaff);

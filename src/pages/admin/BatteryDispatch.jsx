@@ -87,7 +87,7 @@ const BatteryDispatch = () => {
     }
   ];
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status) => {
     switch (status) {
       case "shipping":
         return <Badge className="bg-warning text-warning-foreground"><Truck className="w-3 h-3 mr-1" />Đang vận chuyển</Badge>;

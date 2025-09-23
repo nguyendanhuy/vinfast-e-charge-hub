@@ -25,14 +25,14 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = (field, value) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const handleSignUp = (e: React.FormEvent) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
     
     // Validation
