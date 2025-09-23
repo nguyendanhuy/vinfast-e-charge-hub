@@ -25,14 +25,14 @@ const SignUp = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleInputChange = (field, value) => {
+  const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = (e: React.FormEvent) => {
     e.preventDefault();
     
     // Validation
@@ -238,7 +238,7 @@ const SignUp = () => {
               <Checkbox
                 id="agreeTerms"
                 checked={formData.agreeTerms}
-                onCheckedChange={(checked) => handleInputChange("agreeTerms", checked)}
+                onCheckedChange={(checked) => handleInputChange("agreeTerms", checked as boolean)}
               />
               <Label htmlFor="agreeTerms" className="text-sm">
                 Tôi đồng ý với{" "}

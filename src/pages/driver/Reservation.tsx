@@ -10,7 +10,7 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 
 const Reservation = () => {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
   const [selectedTime, setSelectedTime] = useState("");
   const [selectedStation, setSelectedStation] = useState("");
   const [selectedBatteryType, setSelectedBatteryType] = useState("");

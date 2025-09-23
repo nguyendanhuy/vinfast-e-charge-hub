@@ -80,7 +80,7 @@ const BatteryInventory = () => {
     }
   ];
 
-  const getStatusBadge = (status) => {
+  const getStatusBadge = (status: string) => {
     switch (status) {
       case "full":
         return <Badge className="bg-success text-white">Pin đầy</Badge>;
