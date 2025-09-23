@@ -91,7 +91,7 @@ const StaffManagement = () => {
       const selectedStation = stations.find(station => station.id.toString() === assignData.stationId);
       const updatedStaff = staffList.map(staff =>
         staff.id === assignData.staffId
-          ? { ...staff, station: selectedStation?.name || null, status: "active" as const, email: assignData.email }
+          ? { ...staff, station: selectedStation?.name || null, status: "active", email: assignData.email }
           : staff
       );
       setStaffList(updatedStaff);
