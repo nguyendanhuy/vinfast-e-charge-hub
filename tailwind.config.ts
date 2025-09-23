@@ -52,6 +52,7 @@ export default {
           "blue-dark": "hsl(var(--electric-blue-dark))",
           "blue-light": "hsl(var(--electric-blue-light))",
         },
+        coral: "hsl(var(--coral))",
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         charging: "hsl(var(--charging))",
